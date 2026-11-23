@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="pro-widget" content="">
+<title>PRO Началка | Редактор интерактивных окон для Genially v11</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Bad+Script&family=Caveat:wght@400;600;700&family=Comfortaa:wght@400;600;700&family=Lobster&family=Neucha&family=Nunito:wght@400;600;700;800&family=Pacifico&family=PT+Sans:wght@400;700&family=Rubik:wght@400;600;700;800&family=Russo+One&family=Ubuntu:wght@400;700&display=swap');
+
+:root{--brown:#47342f;--muted:#8c817d;--cream:#fffbf4;--line:#e7ddd3;--peach:#eab1a5;--pink:#d9817e;--mint:#80a99a;--blue:#eaf2f4;--side:#fffdf9;--shadow:0 8px 30px #3a2a2014}
+*{box-sizing:border-box}body{margin:0;background:#f6f1eb;color:var(--brown);font-family:Inter,"Segoe UI",Arial,sans-serif;font-size:14px}button,input,textarea,select{font:inherit}button{cursor:pointer}button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid #aed7c3;outline-offset:2px}
+button{border:1px solid var(--line);border-radius:10px;background:white;color:var(--brown);padding:10px 12px;font-weight:650}button:hover{background:#fff0e9}button.primary{background:#865c59;color:white;border-color:#865c59}button.primary:hover{background:#704d4b}button.accent{background:#df8c82;border-color:#df8c82;color:white}button.ghost{background:transparent}button.tiny{padding:6px 9px;font-size:12px}button.danger{border-color:#efcbc7;color:#b74b4a}button:disabled{opacity:.45;cursor:not-allowed}
+#editorApp{min-height:100vh;display:flex;flex-direction:column}header{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:14px 22px;background:#fffdfa;border-bottom:1px solid var(--line)}.brand{display:flex;align-items:center;gap:12px}.logo{width:42px;height:42px;border-radius:13px;background:#d98f83;display:grid;place-items:center;color:#fff;font-size:21px}.brand strong{font-size:17px;display:block}.brand small{display:block;color:var(--muted);margin-top:2px}.headerBtns{display:flex;flex-wrap:wrap;gap:7px;justify-content:flex-end}
+.editorLayout{display:grid;grid-template-columns:255px minmax(420px,1fr) 296px;gap:14px;padding:14px;flex:1;min-height:0}aside,.work{background:var(--side);border:1px solid var(--line);border-radius:15px;box-shadow:var(--shadow);overflow:hidden}aside{padding:14px;min-height:650px}.sectionTitle{display:flex;justify-content:space-between;align-items:center;gap:6px;margin-bottom:12px}.sectionTitle h2{font-size:15px;margin:0}.windowList{display:flex;flex-direction:column;gap:7px;max-height:35vh;overflow:auto}.winrow{border:1px solid var(--line);border-radius:10px;padding:9px;display:flex;align-items:center;gap:6px;background:#fff}.winrow.active{border-color:#cd968f;background:#fff2eb}.winrow .wname{min-width:0;flex:1;text-align:left;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;background:transparent;border:0;padding:2px;font-weight:600}.winrow .smallAction{background:transparent;border:0;padding:5px}.asideDivider{border:0;border-top:1px solid var(--line);margin:18px 0}.fieldLabel{display:block;font-size:12px;font-weight:700;margin:12px 0 6px;color:#5a4641}.editInput,.editArea,.editSelect{display:block;width:100%;border:1px solid #d9cfc5;background:#fff;border-radius:9px;padding:9px 10px;color:#412e2a}.editArea{min-height:72px;resize:vertical}.twoCols{display:grid;grid-template-columns:1fr 1fr;gap:8px}.help{font-size:12px;line-height:1.5;color:#8c7b72}.buttonsRow{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}.colorLine{display:flex;gap:7px;align-items:center}.colorLine input[type=color]{width:43px;height:37px;border:1px solid var(--line);padding:3px;background:white;border-radius:8px}.infoBox{background:#f9f2e8;padding:11px;border-radius:10px;font-size:12px;color:#675650;line-height:1.5}
+.work{padding:14px;display:flex;flex-direction:column;gap:11px}.workHeader{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}.workHeader h2{margin:0;font-size:16px}.tools{display:flex;gap:7px;flex-wrap:wrap}.tools button{font-size:13px;padding:9px 11px}.stageOuter{border:1px dashed #d6c7b9;background:repeating-linear-gradient(45deg,#faf6f0,#faf6f0 10px,#f6f0e8 10px,#f6f0e8 20px);padding:16px;border-radius:13px;min-height:360px;display:flex;align-items:center;justify-content:center;overflow:auto}.stageHolder{position:relative;flex-shrink:0}.stage{position:absolute;left:0;top:0;width:1000px;height:560px;transform-origin:top left;overflow:hidden;border:1px solid #e0cab4;border-radius:24px;box-shadow:0 18px 40px #5e4b3c2b;background:#fff9ea}.stage .piece{position:absolute;user-select:none;touch-action:none;display:flex;align-items:center;cursor:grab}.stage .piece.selected{outline:2px solid #79b9aa;outline-offset:3px;border-radius:8px}.stage .piece.text-piece{white-space:pre-wrap;line-height:1.27;align-items:flex-start;overflow:hidden;padding:2px}.stage .piece.field-piece{justify-content:stretch;align-items:stretch;padding:1px}.stage .piece.field-piece .fieldMock{display:flex;align-items:center;width:100%;height:100%;padding:0 12px;gap:8px;overflow:hidden;white-space:nowrap}.fieldMock span{overflow:hidden;text-overflow:ellipsis;flex:1}.fieldMock b{font-size:12px;opacity:.65}.stage .piece button{cursor:grab}.stage .piece *{pointer-events:none}.stage.preview .piece{cursor:default;user-select:auto}.stage.preview .piece *{pointer-events:auto}.stage.preview .piece.selected{outline:none}.stage.preview .piece input,.stage.preview .piece select{cursor:text}
+.stageFoot{position:absolute;bottom:18px;right:24px;display:flex;gap:10px;align-items:center}.stageFoot button{font-size:16px;border-radius:12px;padding:12px 18px;box-shadow:0 3px 9px #4b382011}.stageFoot .verify{background:#cb857b;color:white;border-color:#cb857b}.stageFoot .reset{background:#ffffffde}.stageMessage{font-size:15px;font-weight:650;padding:8px 13px;background:#ffffffb8;border-radius:10px}.workFooter{display:flex;align-items:center;justify-content:space-between;gap:10px;color:var(--muted);font-size:12px}.toggle{display:flex;align-items:center;gap:7px}.toggle input{accent-color:#ad736d}
+#inspectorContent{overflow:auto;max-height:calc(100vh - 135px)}.propertyHead{padding:10px 12px;background:#f8efe7;border-radius:9px;font-weight:700}.propertyDescription{font-size:12px;color:#816e65;line-height:1.5;margin:7px 0}.rangeRow{display:flex;align-items:center;gap:8px}.rangeRow input{width:100%}.mark{color:#b16d61}.footBrand{text-align:center;font-size:12px;color:#927e74;padding:12px}
+#viewerApp{display:none;margin:0;width:100vw;height:100vh;overflow:hidden;background:transparent}body.viewMode{background:transparent;overflow:hidden}body.viewMode #editorApp{display:none}body.viewMode #viewerApp{display:block}.viewerCanvas{position:absolute;top:0;left:0;width:1000px;height:560px;transform-origin:0 0;overflow:hidden;border-radius:24px;background:#fff8e8;box-shadow:inset 0 0 0 1px #dec9ae}.viewerCanvas .viewtext{position:absolute;white-space:pre-wrap;overflow:hidden;line-height:1.27}.viewerCanvas .answerField{position:absolute;display:flex;align-items:stretch;justify-content:stretch}.viewerCanvas input,.viewerCanvas select,.stage.preview input,.stage.preview select{width:100%;height:100%;border:2px dashed #977268;border-radius:11px;background:#fffdf8dd;color:#4b332e;padding:8px 12px;outline:0;transition:border-color .16s,box-shadow .16s;min-width:0}.viewerCanvas input:focus,.viewerCanvas select:focus,.stage.preview input:focus,.stage.preview select:focus{border-color:#53b7a4;box-shadow:0 0 0 3px #53b7a427}.viewerCanvas .answerField.correct input,.viewerCanvas .answerField.correct select,.stage.preview .correct input,.stage.preview .correct select{border:3px solid #31c379;background:#f4fff7}.viewerCanvas .answerField.wrong input,.viewerCanvas .answerField.wrong select,.stage.preview .wrong input,.stage.preview .wrong select{border:3px solid #eb655c;background:#fff7f3}.viewerCanvas .viewFooter{position:absolute;bottom:18px;right:24px;display:flex;align-items:center;gap:10px}.viewFooter button{background:#fff;border:1px solid #dfcebf;color:#563a34;border-radius:11px;font-size:16px;font-weight:700;padding:11px 16px;box-shadow:0 3px 10px #6042281e}.viewFooter .verify{background:#ca857d;color:white;border-color:#ca857d}.viewFooter .status{background:#ffffffd9;padding:10px 14px;border-radius:10px;font-size:15px;font-weight:700;color:#69453e}.warning{color:#bb4e48}.success{color:#32865e}.modalBackdrop{position:fixed;inset:0;background:#32282380;display:none;align-items:center;justify-content:center;padding:20px;z-index:50}.modalBackdrop.show{display:flex}.modalPanel{width:min(660px,100%);background:#fffdfa;padding:22px;border-radius:16px;box-shadow:0 16px 55px #0003}.modalPanel h2{margin:0 0 9px}.modalPanel textarea{font-family:Consolas,monospace;min-height:155px;font-size:12px}.modalPanel p{line-height:1.5}.modalBtns{display:flex;justify-content:flex-end;gap:8px;margin-top:13px}
+@media(max-width:1120px){.editorLayout{grid-template-columns:220px minmax(350px,1fr)}#inspector{grid-column:1/-1;min-height:200px}#inspectorContent{max-height:none}}@media(max-width:700px){header{padding:11px;align-items:flex-start;flex-wrap:wrap}.editorLayout{display:flex;flex-direction:column;padding:8px}.work{order:-1}.stageOuter{padding:5px;min-height:240px}aside{min-height:0}.windowList{max-height:160px}.brand strong{font-size:14px}.headerBtns{justify-content:flex-start}}
+
+/* V2 — transparent window, individually styled answer fields, word order */
+.stage,.viewerCanvas{isolation:isolate}
+.stage::before,.viewerCanvas::before{content:"";position:absolute;inset:0;pointer-events:none;background-image:var(--win-image,none);background-size:cover;background-position:center;opacity:var(--win-image-opacity,1);border-radius:inherit;z-index:0}
+.stage>.piece,.stage>.stageFoot,.viewerCanvas>.viewPiece,.viewerCanvas>.viewFooter{z-index:1}
+.viewerCanvas .viewPiece{position:absolute;overflow:visible}
+.viewerCanvas .viewPiece.viewtext{overflow:hidden}
+.stage .piece.field-piece{align-items:stretch;justify-content:stretch}
+.stage .piece.text-piece{display:flex;justify-content:flex-start}
+.stage .piece.field-piece .fieldMock{border:2px dashed var(--mini-border,#a6a6a6);background:var(--mini-bg,#fff);color:var(--mini-ink,#47342f);border-radius:var(--mini-radius,18px);width:100%;height:100%;display:flex;align-items:center;padding:8px 12px;gap:8px}
+.answerField,.sequenceField{position:relative;display:flex;width:100%;height:100%;align-items:stretch}
+.answerField input,.answerField textarea,.answerField select{display:block;width:100%;height:100%;box-sizing:border-box;min-width:0;border:2px dashed var(--mini-border,#a6a6a6)!important;border-radius:var(--mini-radius,11px)!important;background:var(--mini-bg,#fff)!important;color:var(--mini-ink,#47342f)!important;outline:none!important;box-shadow:none!important;padding:9px 13px;transition:border-color .15s,box-shadow .15s}
+.answerField textarea{resize:none;line-height:1.25}
+.answerField input:focus,.answerField textarea:focus,.answerField select:focus{border-color:var(--mini-border,#a6a6a6)!important;box-shadow:0 0 0 3px #99999924!important}
+.answerField.correct input,.answerField.correct select,.answerField.correct textarea{border:3px solid #28b867!important;box-shadow:0 0 0 2px #28b86715!important}
+.answerField.wrong input,.answerField.wrong select,.answerField.wrong textarea{border:3px solid #e65959!important;box-shadow:0 0 0 2px #e6595915!important}
+.answerField input::placeholder,.answerField textarea::placeholder{color:#999;opacity:1}
+.sequenceField,.sequenceMock{border:2px dashed var(--mini-border,#a6a6a6);background:var(--mini-bg,#fff);border-radius:var(--mini-radius,11px);color:var(--mini-ink,#47342f);padding:13px;overflow:auto;align-items:center}
+.sequenceField.correct{border:3px solid #28b867}.sequenceField.wrong{border:3px solid #e65959}
+.seqChips{display:flex;flex-flow:row wrap;gap:10px;align-content:center;justify-content:center;min-height:100%;width:100%}
+.seqChip{font-size:25px;padding:8px 14px;cursor:grab;user-select:none;touch-action:manipulation;border:1.5px solid #cdbab0;border-radius:11px;background:#fffdf8;color:#553c34;box-shadow:0 2px 4px #3a2e2a12;font-weight:600}
+.seqChip.dragging{opacity:.42}.seqChip.selected-chip{outline:3px solid #72a9c8;background:#e4f3fb}
+.seqChipMock{display:inline-block;padding:9px 13px;margin:3px;border:1px solid #d0b9b0;background:#fffdf8;border-radius:10px;color:#59433c;font-size:25px}
+.sequenceMock{display:block;width:100%;height:100%}
+.fieldStyleTitle{font-size:13px;font-weight:750;border-top:1px solid #e7ddd3;margin-top:20px;padding-top:14px}
+.stageMessage,.viewFooter .status{max-width:540px;white-space:normal;line-height:1.25;text-align:center;overflow-wrap:anywhere;font-size:15px}
+.viewerCanvas{background-image:none;box-shadow:inset 0 0 0 1px #dec9ae00}
+.stage .piece.field-piece .sequenceField button{pointer-events:auto}
+.stage:not(.preview) .piece *{pointer-events:none}
+.stage.preview .piece *{pointer-events:auto}
+.stage.preview .piece{cursor:default}
+.stage .stageFoot,.viewerCanvas .viewFooter{bottom:15px;right:17px}
+@media(max-width:1250px){.editorLayout{grid-template-columns:225px minmax(420px,1fr) 270px;gap:10px}.tools button{font-size:12px;padding:8px}}
+
+/* V4: selectable Cyrillic fonts and photo-only/transparent photo backgrounds */
+.photoOnlyHint{margin:7px 0 4px;padding:9px 10px;background:#ecf7f4;border:1px solid #c9e5dc;border-radius:9px;font-size:12px;line-height:1.45;color:#416b60}
+#winFont{font-size:14px}
+/* V3: resize, precise dragged word chips, image layers, typography background, close controls */
+.stageOuter{position:relative;overflow:auto;min-height:360px}
+.stage,.viewerCanvas{background-clip:padding-box}
+.stage::before,.viewerCanvas::before{background-size:var(--win-image-fit,contain);background-repeat:no-repeat;background-position:center center}
+.stageHolder{outline:1px solid #d6cabd;outline-offset:0;border-radius:8px}
+.stage>.piece,.stage>.stageFoot,.stage>.closeWidget,.viewerCanvas>.viewPiece,.viewerCanvas>.viewFooter,.viewerCanvas>.closeWidget{position:absolute;z-index:2}
+.stage>.piece.field-piece,.viewerCanvas>.viewPiece.answer-piece{overflow:visible!important}
+.stage .piece.field-piece>.fieldMock{position:relative;z-index:2}
+.fieldDecor{pointer-events:none!important;position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) translate(var(--image-offset-x,0px),var(--image-offset-y,0px));object-fit:contain;width:var(--image-width,160%);height:var(--image-height,155%);max-width:none;max-height:none;pointer-events:none;z-index:0;user-select:none}
+.answerField,.sequenceField{z-index:1}
+.sequenceField,.sequenceMock{padding:1px 0;background:transparent;border:0;overflow:visible;align-items:flex-start;justify-content:flex-start}
+.sequenceField.correct,.sequenceField.wrong{border:0}
+.seqChips{min-height:0;justify-content:flex-start;align-content:flex-start;gap:7px;overflow:visible}
+.seqChip,.seqChipMock{display:inline-flex;align-items:center;justify-content:center;max-width:100%;font-size:var(--chip-font,25px);line-height:1.12;min-height:0;padding:5px 10px;background:var(--mini-bg,#fff);border:2px dashed var(--mini-border,#a6a6a6);border-radius:var(--mini-radius,10px);color:var(--mini-ink,#47342f);box-shadow:0 2px 5px #0000000d;white-space:normal;cursor:grab;touch-action:none;user-select:none;overflow-wrap:anywhere}
+.seqChipMock{margin:0 6px 6px 0;cursor:default}
+.seqChip:active{cursor:grabbing}
+.seqChip.selected-chip{outline:2px solid #73a8b8;outline-offset:1px}
+.seqChip.dragging{opacity:.18}
+.seqDropTarget{border:2px dashed #70b4b4;background:#c5f1e580;border-radius:10px;min-width:48px;min-height:35px;flex:0 0 auto}
+.seqDragGhost{white-space:nowrap!important;max-width:none!important;position:fixed;pointer-events:none;z-index:10000;box-shadow:0 14px 25px #272a3352;opacity:.94;transform:rotate(-2deg);margin:0!important}
+.sequenceField.correct .seqChip{border-color:#27b56e;border-style:solid}
+.sequenceField.wrong .seqChip{border-color:#e8615e;border-style:solid}
+.text-piece,.viewtext{box-sizing:border-box}
+.closeWidget{border:0!important;border-radius:50%;padding:0!important;display:flex;align-items:center;justify-content:center;user-select:none;box-shadow:0 3px 10px #24180f38;cursor:pointer;font-weight:800;line-height:1;touch-action:none;z-index:5!important;overflow:hidden}
+.closeWidget:hover{filter:brightness(1.08)}.closeWidget img{width:100%;height:100%;object-fit:contain;pointer-events:none}
+.closeWidget.disabledHover:hover{filter:none;cursor:grab}
+.windowResizeHandle{position:absolute;width:15px;height:15px;border:2px solid #fff;background:#8cbcb0;border-radius:5px;box-shadow:0 1px 5px #0003;z-index:20;touch-action:none;pointer-events:auto}
+.windowResizeHandle[data-edge='r']{cursor:ew-resize}.windowResizeHandle[data-edge='l']{cursor:ew-resize}.windowResizeHandle[data-edge='b']{cursor:ns-resize}.windowResizeHandle[data-edge='t']{cursor:ns-resize}.windowResizeHandle[data-edge='br'],.windowResizeHandle[data-edge='tl']{cursor:nwse-resize}.windowResizeHandle[data-edge='bl'],.windowResizeHandle[data-edge='tr']{cursor:nesw-resize}
+.windowSizeTag{position:absolute;z-index:22;left:0;top:-26px;background:#46332d;color:#fff;font-size:11px;font-weight:700;border-radius:6px;padding:3px 6px;pointer-events:none;white-space:nowrap}
+.uploadRow{display:flex;gap:6px;flex-wrap:wrap;margin-top:7px}.uploadRow button{flex:1;font-size:11px;padding:8px}
+.tagTip{font-size:11px;border-radius:8px;background:#edf6f0;color:#427160;padding:8px;margin-top:7px;line-height:1.4}
+.windowSizeControl{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+@media(max-width:700px){.windowResizeHandle{width:18px;height:18px}}
+
+/* V5 — sticky editing screen, true auto-fit text, canvas resize controls, refined answer outlines */
+.editorLayout{align-items:start}
+.work{position:sticky;top:10px;align-self:start;max-height:calc(100vh - 20px);overflow:auto;z-index:3}
+.workHeader{flex-shrink:0}.workFooter{flex-shrink:0}.stageOuter{flex-shrink:1;min-height:220px;padding:26px;scrollbar-width:thin}
+#previewAction{background:#76a99d;border-color:#76a99d;color:#fff}
+#previewAction:hover{background:#64978a}
+#previewAction.active{background:#fff1e9;border-color:#dca79c;color:#754945}
+.stage .piece.text-piece{overflow:hidden;overflow-wrap:break-word;word-break:normal}
+.viewerCanvas .viewPiece.viewtext{overflow:hidden;overflow-wrap:break-word;word-break:normal}
+.textResizeHandle{width:16px;height:16px;position:absolute;background:#6fb3a1;border:2px solid white;border-radius:5px;box-shadow:0 1px 6px #153d3380;z-index:40;touch-action:none;pointer-events:auto!important}
+.stage:not(.preview) .piece .textResizeHandle{pointer-events:auto!important}
+.stage .piece.field-piece .fieldMock,.answerField input,.answerField textarea,.answerField select{border:2.5px dashed var(--mini-border,#998c88)!important;border-radius:var(--mini-radius,18px)!important;background-clip:padding-box}
+.answerField.correct input,.answerField.correct select,.answerField.correct textarea{border:3px solid #28b867!important}
+.answerField.wrong input,.answerField.wrong select,.answerField.wrong textarea{border:3px solid #e65959!important}
+.seqChip,.seqChipMock{border:0!important;border-radius:var(--mini-radius,12px);background:var(--mini-bg,#fff);box-shadow:0 2px 8px #46332d1c;line-height:1.16;padding:6px 11px}
+.sequenceField.correct .seqChip{border:0!important;box-shadow:0 0 0 2px #28b86755,0 2px 8px #46332d1c}
+.sequenceField.wrong .seqChip{border:0!important;box-shadow:0 0 0 2px #e6595955,0 2px 8px #46332d1c}
+.seqDropTarget{border:1px dashed #76b3a2;}
+@media(max-width:700px){.work{position:static;max-height:none;overflow:visible}.stageOuter{padding:12px;}}
+
+/* V6 — понятное управление выбранным объектом и доступный холст */
+.settingsFold{border:1px solid #eaded3;border-radius:12px;background:#fffdfa;margin-top:13px;padding:0 10px 10px}
+.settingsFold>summary{font-weight:750;cursor:pointer;list-style:none;padding:13px 2px;position:relative;user-select:none}
+.settingsFold>summary::after{content:"⌄";position:absolute;right:4px;color:#8f7067;font-size:18px}
+.settingsFold[open]>summary::after{content:"⌃"}
+.settingsFold>summary::-webkit-details-marker{display:none}
+#windowsAside{max-height:calc(100vh - 24px);overflow:auto;scrollbar-width:thin}
+#inspector{max-height:calc(100vh - 24px);overflow:hidden;display:flex;flex-direction:column}
+#inspectorContent{overflow:auto;min-height:0;max-height:none;flex:1;scrollbar-width:thin}
+.quickTools{background:#f7eee7;border:1px solid #e4d6c9;border-radius:12px;min-height:46px;padding:7px 11px;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.quickTitle{color:#675049;font-size:12px;font-weight:750;white-space:nowrap}
+.quickControls{display:flex;align-items:center;flex-wrap:wrap;gap:5px}
+.quickControls[hidden]{display:none}
+.quickLabel{font-size:11px;color:#6d5a51;font-weight:700}
+.quickControls input{width:65px;height:32px;border:1px solid #d6c6b7;border-radius:8px;padding:4px 5px;text-align:center;background:white;color:#45302a}
+.quickControls button{height:32px;padding:5px 8px}
+.quickSeparator{height:25px;width:1px;background:#cbb7a8;margin:0 5px}
+.zoomGroup{display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+.zoomGroup label{font-size:12px}
+.zoomGroup select{background:#fffdfa;border:1px solid #ddcfc2;border-radius:7px;padding:5px}
+.editorLayout{grid-template-columns:minmax(200px,240px) minmax(440px,1fr) minmax(245px,305px)}
+.stageOuter{min-height:250px;max-height:calc(100vh - 340px);overscroll-behavior:contain;scrollbar-width:thin}
+.stage>.piece.selected{outline:2px dashed #51a48a;outline-offset:4px;border-radius:8px}
+.stage .piece.text-piece{cursor:move}
+.elementResizeHandle{position:absolute;z-index:90;touch-action:none!important;pointer-events:auto!important;background:#fff;border:2px solid #4da58e;border-radius:5px;box-shadow:0 1px 4px #263d3255;box-sizing:border-box}
+.elementResizeHandle[data-edge="e"],.elementResizeHandle[data-edge="w"]{cursor:ew-resize}
+.elementResizeHandle[data-edge="n"],.elementResizeHandle[data-edge="s"]{cursor:ns-resize}
+.elementResizeHandle[data-edge="nw"],.elementResizeHandle[data-edge="se"]{cursor:nwse-resize;background:#74b9a7}
+.elementResizeHandle[data-edge="ne"],.elementResizeHandle[data-edge="sw"]{cursor:nesw-resize;background:#74b9a7}
+.elementResizeHandle:hover{background:#c8ebdf}
+.stage .piece.inline-editing{cursor:text!important;outline:2px solid #ce8b75;user-select:text!important;touch-action:auto!important;white-space:pre-wrap!important}
+.stage .piece.inline-editing:focus{outline:2px solid #ce8b75;outline-offset:2px}
+.stage .piece.inline-editing *{pointer-events:auto!important}
+.stage .piece.field-piece .fieldMock{min-height:100%;justify-content:center}
+.stage .piece.field-piece .fieldMock span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+@media(max-width:1220px){.editorLayout{grid-template-columns:200px minmax(350px,1fr)}#inspector{grid-column:1/-1;max-height:none}#inspectorContent{max-height:none}}
+@media(max-width:760px){.editorLayout{display:flex;flex-direction:column}.work{position:sticky;top:0;max-height:85vh;order:-1}#windowsAside,#inspector{max-height:none}.stageOuter{min-height:180px;max-height:55vh}.quickTools{gap:5px}.quickTitle{font-size:11px}}
+/* V9: minimalist multi-selection, no extra movement or arrangement buttons */
+.stage>.piece.multi-selected{outline:2px solid #4fa990;outline-offset:3px;border-radius:5px}
+.stage>.piece.multi-selected.text-piece{outline-offset:2px}
+.stage>.multiSelectionOutline{position:absolute;pointer-events:none!important;border:1.6px dashed #258f7a;z-index:55;box-sizing:border-box;box-shadow:0 0 0 2px #ffffff8f;}
+.stage>.multiSelectionOutline::before{content:attr(data-count);position:absolute;bottom:calc(100% + 5px);left:0;color:white;background:#248b76;font:700 14px Arial,sans-serif;padding:4px 8px;border-radius:6px;white-space:nowrap}
+.stage>.guideOverlay{position:absolute;inset:0;pointer-events:none!important;z-index:90;overflow:hidden}
+.guide-line{position:absolute;pointer-events:none!important;background:#ec5293;box-shadow:0 0 0 1px #fff8}
+.guide-line.vertical{top:0;bottom:0;width:1.5px}.guide-line.horizontal{left:0;right:0;height:1.5px}
+.gap-guide{position:absolute;pointer-events:none!important;border-color:#e1539b;border-style:solid;box-sizing:border-box}
+.gap-guide.horizontal{height:11px;border-width:1.5px 1.5px 0 1.5px}.gap-guide.vertical{width:11px;border-width:1.5px 0 1.5px 1.5px}
+.gap-guide span{position:absolute;display:block;white-space:nowrap;background:#b83e80;color:white;font:700 12px Arial,sans-serif;padding:2px 5px;border-radius:4px;box-shadow:0 1px 3px #fff;}
+.gap-guide.horizontal span{left:50%;top:-22px;transform:translateX(-50%)}.gap-guide.vertical span{top:50%;left:13px;transform:translateY(-50%)}
+.stage>.marqueeBox{position:absolute;pointer-events:none!important;z-index:120;background:#48b7a02e;border:1.6px solid #268e78;box-shadow:inset 0 0 0 1px #fff9}
+.work{position:sticky;top:8px;align-self:start;z-index:5}
+@media(max-width:1220px){.work{position:static}}
+/* V8 — animated embedded background and separately selectable border styles */
+.stage>.liveBackground,.viewerCanvas>.liveBackground{position:absolute;inset:0;width:100%;height:100%;z-index:1!important;pointer-events:none!important;overflow:hidden;border-radius:inherit;user-select:none}
+.stage>.liveBackground iframe,.viewerCanvas>.liveBackground iframe{width:100%;height:100%;border:0;display:block;pointer-events:none!important;background:transparent}
+.stage>.piece,.viewerCanvas>.viewPiece{z-index:2!important}
+.stage>.stageFoot,.viewerCanvas>.viewFooter{z-index:4!important}
+.liveEmbedInfo{padding:9px 10px;border-radius:9px;background:#eaf5f1;border:1px solid #cfe6dc;color:#3b6b5c;font-size:12px;line-height:1.5;overflow-wrap:anywhere}
+#winLiveEmbed{font-family:Consolas,monospace;font-size:12px;min-height:76px}
+.stage .piece.field-piece .fieldMock,.answerField:not(.correct):not(.wrong) input,.answerField:not(.correct):not(.wrong) textarea,.answerField:not(.correct):not(.wrong) select{border:2.5px var(--mini-border-style,dashed) var(--mini-border,#998c88)!important}
+
+/* V10: inline answer templates, stable text dimensions and uncluttered export */
+.stage .piece.inline-piece,.viewerCanvas .viewPiece.inline-piece{display:block!important;overflow:hidden!important;white-space:normal;align-items:initial;justify-content:initial;padding:0;line-height:1.38}
+.inlineTask{width:100%;height:100%;white-space:pre-wrap;overflow-wrap:break-word;word-break:normal;line-height:inherit;color:inherit;font:inherit}
+.inlineTask .answerField.inlineAnswer{position:relative!important;display:inline-flex!important;vertical-align:middle;margin:4px 5px;height:var(--slot-height,55px)!important;max-width:100%;flex:0 0 auto;align-items:stretch;box-sizing:border-box;z-index:2}
+.inlineTask .answerField.inlineAnswer input,.inlineTask .answerField.inlineAnswer select{box-sizing:border-box;width:100%;height:100%;font-weight:normal;min-width:0;box-shadow:none}
+.inlineTask .inlineMock{display:inline-flex;align-items:center;vertical-align:middle;height:var(--slot-height,55px);margin:4px 5px;padding:4px 13px;background:var(--mini-bg,#fff);border:2.5px var(--mini-border-style,dashed) var(--mini-border,#a8a8a8);border-radius:var(--mini-radius,18px);color:var(--mini-ink,#54443e);min-width:75px;box-sizing:border-box;font-size:.8em}
+.stage:not(.preview) .inlineTask .inlineMock{pointer-events:none}
+#autoTaskModal .modalPanel{width:min(780px,100%)}
+#autoTaskModal .modalPanel textarea{min-height:190px;font:16px/1.55 'PT Sans',Arial,sans-serif}
+.exampleSyntax{background:#f6f1e8;border:1px solid #e7d9ca;border-radius:12px;padding:12px 14px;line-height:1.65;font-size:13px}
+#autoHostNotice{border-radius:10px;padding:10px 12px;background:#ebf5ef;color:#326e50;border:1px solid #d1e8d8;font-size:13px}
+#autoHostNotice.not-hosted{background:#fff5e7;color:#855b3a;border-color:#efdcc3}
+#hostOverride{margin-top:9px;border-top:1px solid #eee3d7;padding-top:8px}
+#hostOverride summary{cursor:pointer;color:#74564a;font-size:12px}
+
+
+/* V11: independently resize slots inside one movable text exercise */
+.stage:not(.preview) .inlineTask .inlineMock{pointer-events:auto!important;cursor:pointer!important;min-width:0!important;min-height:0!important;padding:2px 6px!important;line-height:1.05;justify-content:center;white-space:nowrap;user-select:none;vertical-align:middle;}
+.inlineTask .inlineMock.shortSlot{padding:1px 2px!important;}
+.inlineTask .answerField.inlineAnswer{min-width:0!important;min-height:0!important;margin:3px 4px;}
+.inlineTask .answerField.inlineAnswer.shortSlot input{padding:2px 3px!important;text-align:center;}
+.inlineTask .answerField.inlineAnswer input{padding:4px 8px;}
+.stage>.inlineSlotOutline{position:absolute;z-index:86;pointer-events:none!important;border:2px solid #278cb4;border-radius:7px;box-shadow:0 0 0 2px #ffffffe0;box-sizing:border-box;}
+.stage>.inlineSlotHandle{position:absolute;z-index:98;width:13px;height:13px;background:#279db8;border:2px solid #fff;border-radius:4px;box-shadow:0 1px 5px #0006;box-sizing:border-box;touch-action:none;pointer-events:auto!important}
+.inlineSlotHandle[data-edge="w"],.inlineSlotHandle[data-edge="e"]{cursor:ew-resize}
+.inlineSlotHandle[data-edge="n"],.inlineSlotHandle[data-edge="s"]{cursor:ns-resize}
+.inlineSlotHandle[data-edge="nw"],.inlineSlotHandle[data-edge="se"]{cursor:nwse-resize}
+.inlineSlotHandle[data-edge="ne"],.inlineSlotHandle[data-edge="sw"]{cursor:nesw-resize}
+.slotInspectorIntro{background:#eaf4f8;border:1px solid #b9dce7;border-radius:10px;padding:10px;font-size:12px;color:#345c69;line-height:1.5;margin-bottom:10px}
+.slotInspectorIntro button{margin-top:7px;background:#fff;border-color:#b4d4df;color:#315e71;padding:7px 10px}
+</style>
+</head>
+<body>
+<div id="editorApp">
+ <header>
+  <div class="brand"><div class="logo">✎</div><div><strong>PRO Началка · Редактор окон</strong><small>Создавай сколько угодно интерактивных заданий для Genially</small></div></div>
+  <div class="headerBtns"><button id="newWinTop">＋ Новое окно</button><button id="saveProject">Скачать проект JSON</button><button id="loadProject">Открыть проект</button><button class="primary" id="exportTop">Экспорт окна</button></div>
+ </header>
+ <div class="editorLayout">
+  <aside id="windowsAside">
+   <div class="sectionTitle"><h2>Мои окна</h2><button class="tiny primary" id="newWin">＋ Добавить</button></div>
+   <div id="windowList" class="windowList"></div>
+   <div class="buttonsRow"><button class="tiny" id="duplicateWin">⧉ Копировать окно</button><button class="tiny danger" id="deleteWin">Удалить</button></div>
+   <hr class="asideDivider">
+   <details class="settingsFold" id="foldAppearance"><summary>🎨 Оформление большого окна</summary>
+   <label class="fieldLabel">Название для списка</label><input class="editInput" id="winName">
+   <label class="fieldLabel">Основной шрифт окна и ответов</label><select class="editSelect" id="winFont"></select>
+   <p class="help">Шрифт можно дополнительно изменить для каждого текста, поля ввода, списка или карточек слов. Декоративные шрифты загружаются из интернета; без сети используются похожие системные шрифты.</p>
+   <div class="twoCols"><div><label class="fieldLabel">Фон</label><input type="color" id="winBg" class="editInput" style="height:40px;padding:3px"></div><div><label class="fieldLabel">Цвет текста</label><input type="color" id="winInk" class="editInput" style="height:40px;padding:3px"></div></div>
+   <label class="fieldLabel">Картинка фона большого окна</label><input class="editInput" id="winBgUrl" placeholder="HTTPS-ссылка на изображение">
+       <div class="uploadRow"><button id="winBgUpload" type="button">📁 Загрузить свой фон</button><button id="winBgClear" type="button">Убрать картинку</button></div>
+        <p id="winImageInfo" class="help">Фон можно загружать с компьютера или по HTTPS.</p>
+        <div class="fieldStyleTitle">🎞 Живой фон из iframe</div>
+        <p class="help">Вставь код &lt;iframe ...&gt;&lt;/iframe&gt; из своего сервиса для анимированных фонов либо прямую HTTPS-ссылку. Отдельный фоновый слой не мешает перемещать тексты, поля и пользоваться направляющими.</p>
+        <label class="fieldLabel" for="winLiveEmbed">Код iframe или HTTPS-ссылка на фон</label>
+        <textarea id="winLiveEmbed" class="editArea" rows="3" placeholder="&lt;iframe src=&quot;https://...&quot;&gt;&lt;/iframe&gt;"></textarea>
+        <div class="uploadRow"><button id="winLiveApply" type="button">✓ Применить живой фон</button><button id="winLiveClear" type="button">✕ Убрать живой фон</button></div>
+        <div class="liveEmbedInfo" id="liveEmbedInfo" role="status">Живой фон ещё не добавлен.</div>
+        <label class="toggle" style="margin-top:12px"><input id="winLiveOnly" type="checkbox"> Оставить только живой фон, без цветной подложки и внешней рамки</label>
+        <p class="help">Живой фон показывается под всеми элементами. Его нельзя нажимать или двигать внутри редактора: это позволяет пользоваться текстом, полями и направляющими. Некоторые сайты запрещают вставку своих страниц в iframe.</p>
+       <label class="toggle" style="margin-top:12px"><input type="checkbox" id="winPhotoOnly"> <b>Только фотография — убрать подложку большого окна и рамку</b></label>
+       <div class="photoOnlyHint">В этом режиме белый/цветной прямоугольник исчезает полностью. Остаются только твоя фоновая картинка, текст и интерактивные поля. Прозрачные края PNG сохраняются. Рамка окна скрыта, даже если она включена ниже.</div>
+       <label class="fieldLabel">Прозрачность самой картинки: <strong id="winPhotoOpacityValue">100%</strong></label><input type="range" min="0" max="100" id="winPhotoOpacity" style="width:100%">
+       <label class="fieldLabel">Как помещать фоновую картинку</label><select id="winBgFit" class="editSelect"><option value="contain">Целиком, без обрезки</option><option value="cover">Заполнить окно (может обрезаться)</option><option value="100% 100%">Растянуть под окно</option></select>
+   <label class="fieldLabel">Прозрачность фона большого окна: <strong id="winOpacityValue">100%</strong></label><input type="range" min="0" max="100" id="winOpacity" style="width:100%"><p class="help">Этот бегунок регулирует только цветную заливку, а не картинку. Чтобы оставить одно фото без подложки и рамки, включи «Только фотография» выше.</p>
+   <label class="fieldLabel">Скругление углов</label><input type="range" min="0" max="75" id="winRadius" style="width:100%">
+       <div class="fieldStyleTitle">Мягкое рассеянное свечение окна</div>
+       <label class="toggle"><input type="checkbox" id="winGlowOn"> Включить плавное свечение без жёсткого ореола</label>
+       <div class="twoCols"><div><label class="fieldLabel">Цвет свечения</label><input type="color" id="winGlowColor" class="editInput" value="#e9baa5" style="height:40px"></div><div><label class="fieldLabel">Сила, %</label><input type="range" id="winGlowStrength" min="0" max="100" value="45" style="width:100%"></div><div><label class="fieldLabel">Размытие, px</label><input type="range" id="winGlowBlur" min="10" max="100" value="42" style="width:100%"></div><div><label class="fieldLabel">Распространение, px</label><input type="range" id="winGlowSpread" min="0" max="38" value="8" style="width:100%"></div></div>
+       <p class="help">Свечение мягко рассеивается за границы окна. Сохраняется и в экспортируемом задании.</p>
+       <label class="toggle" style="margin:10px 0"><input type="checkbox" id="winBorderShow"> Показывать рамку большого окна</label>
+       <div class="twoCols"><div><label class="fieldLabel">Цвет рамки</label><input type="color" class="editInput" id="winBorderColor" style="height:38px"></div><div><label class="fieldLabel">Толщина рамки (px)</label><input type="number" min="0" max="24" class="editInput" id="winBorderWidth"></div></div>
+       <label class="fieldLabel">Размер окна (пиксели)</label><div class="windowSizeControl"><input id="winWidth" class="editInput" type="number" min="520" max="1600" placeholder="Ширина"><input id="winHeight" class="editInput" type="number" min="300" max="1000" placeholder="Высота"></div>
+       <p class="help">Также можно включить предпросмотр и растянуть окно за зелёные маркеры по краям и углам.</p>
+       </details><details class="settingsFold" id="foldClosing"><summary>✕ Закрытие и проверка</summary>
+       <label class="toggle"><input type="checkbox" id="winCloseShow"> Показывать кнопку с крестиком</label>
+       <label class="toggle" style="margin:10px 0"><input type="checkbox" id="winCloseOnSuccess"> Скрывать задание после верного ответа</label>
+       <label class="fieldLabel">Положение крестика</label><select id="winClosePos" class="editSelect"><option value="tr">Вверху справа</option><option value="tl">Вверху слева</option><option value="br">Внизу справа</option><option value="bl">Внизу слева</option><option value="custom">Свободное — перетаскивай крестик</option></select>
+       <div class="twoCols"><div><label class="fieldLabel">Цвет кнопки</label><input type="color" id="winCloseBg" class="editInput" style="height:38px"></div><div><label class="fieldLabel">Цвет крестика</label><input type="color" id="winCloseInk" class="editInput" style="height:38px"></div></div>
+       <label class="fieldLabel">Размер кнопки, px</label><input id="winCloseSize" type="number" min="26" max="130" class="editInput">
+       <label class="fieldLabel">Свой значок закрытия (PNG / WebP)</label><input id="winCloseImageUrl" class="editInput" placeholder="HTTPS-ссылка (по желанию)">
+       <div class="uploadRow"><button type="button" id="winCloseUpload">📁 Загрузить свой значок</button><button type="button" id="winCloseClear">Обычный крестик</button></div>
+       <p class="help">В редакторе крестик можно перетаскивать. В опубликованном iframe он скрывает содержимое самого задания; встроенное окно Genially закрывается своей кнопкой.</p>
+   <div class="twoCols"><label class="toggle"><input type="checkbox" id="winCheck">Кнопка проверки</label><label class="toggle"><input type="checkbox" id="winReset">Сброс ответов</label></div>
+   </details><hr class="asideDivider">
+   <div class="infoBox">Одно окно = один самостоятельный интерактивный блок. При экспорте каждое получает свой уникальный код. Чтобы копировать отдельный iframe каждого задания без загрузки каждого файла, один раз размести редактор по HTTPS. PNG-фото встраиваются внутрь ссылки — при большом числе изображений лучше использовать HTTPS-адреса.</div>
+  </aside>
+  <main class="work">
+   <div class="workHeader"><h2>Редактирование окна</h2><div class="tools"><button id="addText">＋ Текст</button><button id="addInput">＋ Поле ввода</button><button id="addSelect">＋ Выбор ответа</button><button id="addSequence">＋ Порядок слов</button><button id="addGroup">＋ Связанная группа</button><button id="addInlineTask" class="accent" type="button">✦ Задание из текста</button><button id="previewAction" class="primary" type="button">▶ Проверить как ученик</button><button id="clonePiece">⧉ Дублировать</button><button id="deletePiece" class="danger">✕ Удалить</button></div></div>
+   <div class="quickTools" id="quickTools" role="group" aria-label="Быстрые настройки выбранного элемента">
+      <span class="quickTitle" id="quickTitle">Нажми на текст или поле ответа</span>
+      <div class="quickControls" id="quickControls" hidden>
+       <label for="quickFontSize" class="quickLabel">Шрифт</label><button class="tiny" id="quickLess" title="Уменьшить шрифт">A−</button><input id="quickFontSize" type="number" min="9" max="180" aria-label="Размер шрифта"><button class="tiny" id="quickMore" title="Увеличить шрифт">A＋</button>
+       <span class="quickSeparator"></span><label for="quickWidth" class="quickLabel">Шир.</label><input id="quickWidth" type="number" min="40" aria-label="Ширина элемента"><label for="quickHeight" class="quickLabel">Выс.</label><input id="quickHeight" type="number" min="25" aria-label="Высота элемента">
+       <button class="tiny" id="quickEditText" type="button" title="Изменить текст прямо на полотне">✎ Изменить</button>
+       <button class="tiny" id="quickFit" type="button" title="Подогнать размер под весь текст">↔ Подогнать</button>
+       <label for="quickLineHeight" class="quickLabel" id="quickLineLabel">Межстроч.</label><input id="quickLineHeight" type="number" min="0.8" max="3" step="0.01" aria-label="Межстрочный интервал">
+      </div>
+    </div>
+<div class="stageOuter" id="stageOuter"><div id="stageHolder" class="stageHolder"><div id="stage" class="stage"></div></div></div>
+   <div class="workFooter"><label class="toggle"><input id="previewToggle" type="checkbox"> Режим ученика · ввод ответов, Enter, проверка и растягивание окна</label><div class="zoomGroup"><label for="zoomControl">Масштаб:</label><select id="zoomControl"><option value="fit">Авто</option><option value="0.75">75%</option><option value="1">100%</option><option value="1.25">125%</option></select><span id="windowDimensions">1000 × 560</span></div></div>
+   <div class="infoBox">Чтобы переместить несколько предметов, выдели их рамкой мышью или удерживай Shift и нажимай на нужные элементы. Затем просто перетащи выделенную группу мышью. Для группы работают обычные кнопки «Дублировать» и «Удалить». <b>Направляющие</b> автоматически помогают выставить ровные края, центры и расстояния; Alt временно отключает притяжение.<br><br>Для задания из текста нажми на конкретное окошко — появятся отдельные синие маркеры, которые изменяют только его размер. Нажми на обычные слова — выделится и переместится весь текст вместе с окошками. Нажми на любой элемент — появятся маркеры. <b>У текста угловые маркеры увеличивают и шрифт, боковые — только рамку.</b> Дважды нажми на текст для редактирования прямо на полотне. У полей ответа все маркеры меняют размер. <b>Enter</b> проверяет ответ (пробелы не мешают). В связанной группе ответы можно писать в любом порядке, а в задании «Порядок слов» карточки перемещаются мышью или парными нажатиями.</div>
+  </main>
+  <aside id="inspector"><div class="sectionTitle"><h2>Настройки элемента</h2></div><div id="inspectorContent"></div></aside>
+ </div>
+ <div class="footBrand">PRO Началка | Материалы для педагогов · vk.ru/pro_nachalka_materials</div>
+</div>
+<div id="viewerApp"></div>
+<div id="exportModal" class="modalBackdrop"><div class="modalPanel"><h2>Вставить окно в Genially</h2><p>На опубликованном сайте ссылка определяется автоматически. Учителям ничего вводить не нужно: создай окно и скопируй iframe.</p><div id="autoHostNotice" role="status">Проверяем адрес опубликованного редактора…</div><details id="hostOverride"><summary>Дополнительно: указать другую ссылку вручную</summary><label class="fieldLabel">HTTPS-ссылка на опубликованный редактор</label><input id="hostUrl" class="editInput" placeholder="https://username.github.io/название-репозитория/"></details><p class="help">В Genially выдели картинку → Интерактивность → Окно. Внутри всплывающего окна вставь внешний контент (iframe). Закрывающий крестик в iframe скрывает содержимое задания; закрытие самого всплывающего слоя Genially по кнопке HTML ограничено политикой браузера. Используй также штатный крестик Genially.</p><label class="fieldLabel">Готовый iframe только для текущего окна</label><textarea class="editArea" id="embedCode" readonly placeholder="Открой опубликованный редактор, затем нажми «Экспорт окна»"></textarea><div class="modalBtns"><button id="downloadWidget">Скачать это окно HTML</button><button id="copyEmbed" class="primary">Скопировать iframe</button><button id="closeModal">Закрыть</button></div><p id="exportFeedback" class="help"></p></div></div>
+<div id="autoTaskModal" class="modalBackdrop"><div class="modalPanel"><h2>Создать задание из текста</h2><p class="help">Вставь свой текст. В местах с вертикальными чертами автоматически появятся поля для ответов. Первое слово среди вариантов считается правильным. Для одной буквы редактор автоматически создаст маленькое окошко. После создания можно нажимать на каждое окошко отдельно и менять его размер, а нажатием на сам текст — выделять весь блок.</p><div class="exampleSyntax"><b>Поле для ввода:</b> <code>|снег|</code> → ученик сам пишет ответ.<br><b>Выбор варианта:</b> <code>|молоко/малако/малоко|</code> → ученик выбирает из списка.<br><b>Можно несколько слов:</b> <code>|красивая берёза|</code> → ответ проверяется после Enter.</div><label class="fieldLabel" for="autoTaskText">Текст готового задания</label><textarea id="autoTaskText" class="editArea" spellcheck="false">Вставь пропущенные слова:
+Зимой выпал |снег|.
+Корова даёт |молоко/малако/малоко|.
+Мы увидели |красивую радугу|.</textarea><label class="toggle" style="margin-top:12px"><input type="checkbox" id="autoTaskNewWindow"> Создать для задания отдельное большое окно</label><p id="autoTaskFeedback" class="help"></p><div class="modalBtns"><button type="button" id="autoTaskCancel">Отмена</button><button type="button" id="autoTaskCreate" class="primary">Добавить задание</button></div></div></div>
+<input id="projectFile" type="file" accept=".json,application/json" hidden><input id="bgImageFile" type="file" accept="image/*" hidden><input id="closeImageFile" type="file" accept="image/*" hidden>
+<script>
+(()=>{
+'use strict';
+const W=1000,H=560,STORE='pro_nachalka_popup_editor_v1';
+const $=id=>document.getElementById(id),clone=v=>JSON.parse(JSON.stringify(v)),uid=()=>Math.random().toString(36).slice(2,10);
+const clamp=(n,a,b)=>Math.max(a,Math.min(b,n)),str=x=>String(x==null?'':x);
+const esc=v=>str(v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function base64Url(value){let raw='';for(const byte of new TextEncoder().encode(value))raw+=String.fromCharCode(byte);return btoa(raw).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'')}
+function decode64(s){s=s.replace(/-/g,'+').replace(/_/g,'/');while(s.length%4)s+='=';return new TextDecoder().decode(Uint8Array.from(atob(s),c=>c.charCodeAt(0)))}
+const norm=v=>str(v).normalize('NFC').trim().replace(/\s+/g,' ').toLocaleLowerCase('ru-RU').replace(/ё/g,'е');
+ const FONT_PRESETS=[
+ ['inherit','Как в настройках окна'],['arial','Arial · строгий'],['pt','PT Sans · учебный'],['nunito','Nunito · мягкий'],
+ ['rubik','Rubik · аккуратный'],['comfortaa','Comfortaa · округлый'],['ubuntu','Ubuntu · современный'],
+ ['neucha','Neucha · рукописный'],['caveat','Caveat · школьный почерк'],['bad','Bad Script · пропись'],
+ ['comic','Comic Sans · игровой'],['trebuchet','Trebuchet MS · дружелюбный'],['georgia','Georgia · классический'],
+ ['lobster','Lobster · заголовки'],['pacifico','Pacifico · декоративный'],['russo','Russo One · крупный заголовок']];
+ const FONT_STACKS={inherit:'inherit',arial:'Arial, sans-serif',pt:'"PT Sans", Arial, sans-serif',nunito:'Nunito, "Trebuchet MS", Arial, sans-serif',rubik:'Rubik, Arial, sans-serif',comfortaa:'Comfortaa, "Trebuchet MS", sans-serif',ubuntu:'Ubuntu, Arial, sans-serif',neucha:'Neucha, "Comic Sans MS", cursive',caveat:'Caveat, "Comic Sans MS", cursive',bad:'"Bad Script", "Comic Sans MS", cursive',comic:'"Comic Sans MS", "Trebuchet MS", cursive',trebuchet:'"Trebuchet MS", Arial, sans-serif',georgia:'Georgia, serif',lobster:'Lobster, Georgia, serif',pacifico:'Pacifico, "Comic Sans MS", cursive',russo:'"Russo One", Arial, sans-serif'};
+ const fontFamily=key=>FONT_STACKS[key]||FONT_STACKS.pt;
+ function fontOptions(selected,includeInherit=true){return FONT_PRESETS.filter(([k])=>includeInherit||k!=='inherit').map(([k,label])=>`<option value="${k}" ${selected===k?'selected':''}>${label}</option>`).join('')}
+const DEFAULT_FIELD={fieldBg:'#ffffff',fieldBorder:'#998c88',fieldBorderStyle:'dashed',fieldInk:'#47342f',fieldOpacity:100,fieldRadius:18};
+function fieldData(it){return {...DEFAULT_FIELD,...it}}
+function newText(text,x,y,w,h,size=30,bold=false,align='left'){return{id:uid(),kind:'text',text,x,y,w,h,size,bold,align,textBgOn:false,textBg:'#ffffff',textOpacity:90,textRadius:12,textPad:9,textColor:'',font:'inherit',autoTextWidth:false,autoTextHeight:true,lineHeight:1.27}}
+function newInlineTask(markup,x=65,y=100,w=870,h=330,size=31){return {id:uid(),kind:'inline',markup,x,y,w,h,size,font:'inherit',lineHeight:1.38,slotWidth:185,slotSelectWidth:245,slotHeight:58,autoShortSlots:true,slotOverrides:{},...DEFAULT_FIELD}}
+function newInput(x,y,w=285,h=65,answer='ответ',placeholder='Введи ответ',groupId=''){return{id:uid(),kind:'input',x,y,w,h,size:27,answer,placeholder,groupId,multiline:false,font:'inherit',...DEFAULT_FIELD}}
+function newSelect(x,y,w=275,h=65){return{id:uid(),kind:'select',x,y,w,h,size:26,answer:'верно',placeholder:'Выбери...',options:'верно\nневерно',groupId:'',font:'inherit',...DEFAULT_FIELD}}
+function newSequence(x,y){return{id:uid(),kind:'sequence',x,y,w:790,h:90,size:27,words:'сегодня\nв\nлесу\nвыпал\nснег',font:'inherit',...DEFAULT_FIELD}}
+function makeWindow(name='Новое задание'){return{id:uid(),name,width:1000,height:560,bg:'#fff9eb',bgOpacity:100,ink:'#4c322c',bgUrl:'',bgImage:'',bgFit:'contain',bgImageOpacity:100,photoOnly:false,liveBgUrl:'',liveBgOnly:false,font:'pt',radius:24,glowOn:false,glowColor:'#e9baa5',glowStrength:45,glowBlur:42,glowSpread:8,borderShow:false,borderColor:'#b9a28b',borderWidth:2,closeShow:true,closeOnSuccess:false,closePos:'tr',closeX:938,closeY:14,closeSize:50,closeBg:'#e26865',closeInk:'#ffffff',closeImage:'',closeImageUrl:'',check:true,reset:true,groups:{},items:[]}}
+function newWindow(){let w=makeWindow('Вычисли устно');w.items=[newText('Вычисли устно:',68,55,860,66,38,true,'center'),newText('36 + 2 =',118,185,425,86,65,true),newInput(560,186,242,77,'38','Ответ'),newText('36 − 2 =',118,300,425,85,65,true),newInput(560,301,242,77,'34','Ответ')];return w}
+function groupExample(){let w=makeWindow('Родственные слова · любой порядок'),g='Группа 1';w.groups[g]={answers:'лесной\nлесник\nлесочек\nлесок'};w.items=[newText('Выпиши четыре однокоренных слова',52,45,896,75,35,true,'center'),newText('Слова можно записывать в любом порядке',80,120,840,48,24,false,'center'),newInput(70,208,400,67,'','Слово 1',g),newInput(530,208,400,67,'','Слово 2',g),newInput(70,308,400,67,'','Слово 3',g),newInput(530,308,400,67,'','Слово 4',g)];return w}
+function sequenceExample(){let w=makeWindow('Расставь слова по порядку');w.items=[newText('Составь предложение',80,60,840,65,38,true,'center'),newText('Перетащи слова в нужной последовательности',75,130,850,46,25,false,'center'),{...newSequence(85,213),words:'Утром\nмы\nувидели\nяркую\nрадугу'}];return w}
+function normalizeProject(src){if(!src||!Array.isArray(src.windows)||!src.windows.length)throw Error('Не найден список окон');
+ for(const w of src.windows){if(!w.id)w.id=uid();w.name||='Окно';if(!Array.isArray(w.items))w.items=[];if(!w.groups||typeof w.groups!=='object'||Array.isArray(w.groups))w.groups={};if(w.bgOpacity==null)w.bgOpacity=100;
+   const defs={width:1000,height:560,bgImage:'',bgFit:'contain',bgImageOpacity:100,photoOnly:false,liveBgUrl:'',liveBgOnly:false,font:'pt',glowOn:false,glowColor:'#e9baa5',glowStrength:45,glowBlur:42,glowSpread:8,borderShow:false,borderColor:'#b9a28b',borderWidth:2,closeShow:true,closeOnSuccess:false,closePos:'tr',closeX:938,closeY:14,closeSize:50,closeBg:'#e26865',closeInk:'#ffffff',closeImage:'',closeImageUrl:''};for(const [key,value] of Object.entries(defs))if(w[key]===undefined)w[key]=value;
+ for(const it of w.items){if(!it.id)it.id=uid();if(it.kind==='text'){const defs={textBgOn:false,textBg:'#ffffff',textOpacity:90,textRadius:12,textPad:9,textColor:'',font:'inherit',autoTextWidth:false,autoTextHeight:true,lineHeight:1.27};for(const [key,v] of Object.entries(defs))if(it[key]===undefined)it[key]=v} else{for(const [k,v] of Object.entries(DEFAULT_FIELD))if(it[k]==null)it[k]=v;if(Number(it.fieldRadius)===11)it.fieldRadius=18;if(it.font==null)it.font='inherit';if(it.groupId==null)it.groupId='';if(it.kind==='input'&&it.multiline==null)it.multiline=false;if(it.kind==='sequence'&&it.words==null)it.words='первое\nвторое\nтретье';if(it.kind==='inline'){it.markup??='Напиши |ответ|';it.slotWidth??=185;it.slotSelectWidth??=245;it.slotHeight??=58;it.lineHeight??=1.38;it.autoShortSlots??=true;if(!it.slotOverrides||typeof it.slotOverrides!=='object'||Array.isArray(it.slotOverrides))it.slotOverrides={}}const defs={fieldImage:'',fieldImageUrl:'',imageScaleX:160,imageScaleY:155,imageOffsetX:0,imageOffsetY:0};for(const [key,v] of Object.entries(defs))if(it[key]===undefined)it[key]=v}}}
+ src.active=src.windows.some(w=>w.id===src.active)?src.active:src.windows[0].id;src.host||='';return src}
+function startup(){try{const existing=JSON.parse(localStorage.getItem(STORE));if(existing&&existing.windows?.length)return normalizeProject(existing)}catch(e){}const w=newWindow(),g=groupExample(),seq=sequenceExample();return{windows:[w,g,seq],active:w.id,host:''}}
+let state=startup(),chosen=null,selectedIds=new Set(),preview=false,drag=null,scale=1,previewContext=null,lastCanvasTap={id:'',at:0},inlineSlotSelection=null;
+state.guides=true;state.snap=true;
+const getWin=()=>state.windows.find(w=>w.id===state.active)||state.windows[0];
+const getItem=()=>getWin().items.find(it=>it.id===chosen);
+function persist(){try{localStorage.setItem(STORE,JSON.stringify(state))}catch(e){}}
+function elem(tag,cls,text){const e=document.createElement(tag);if(cls)e.className=cls;if(text!=null)e.textContent=text;return e}
+function iframeSource(value){
+  let raw=str(value).trim();if(!raw)return '';
+  if(/^<\s*iframe\b/i.test(raw)){
+    const parsed=new DOMParser().parseFromString(raw,'text/html');
+    const node=parsed.querySelector('iframe');raw=node?.getAttribute('src')||'';
+  }else if(/[<>]/.test(raw))return '';
+  try{const url=new URL(raw);if(url.protocol!=='https:'||url.username||url.password)return '';return url.href}catch(e){return ''}
+}
+function insertLiveBackground(stage,w){const url=iframeSource(w.liveBgUrl||'');const previous=stage.querySelector(':scope > .liveBackground');
+  if(previous){if(url&&previous.querySelector('iframe')?.getAttribute('src')===url)return;previous.remove()}
+  if(!url)return;
+  const layer=elem('div','liveBackground');const frame=document.createElement('iframe');
+  frame.src=url;frame.title='Живой фон задания';frame.tabIndex=-1;frame.loading='eager';
+  frame.setAttribute('sandbox','allow-scripts allow-same-origin');frame.setAttribute('allow','autoplay; fullscreen');
+  frame.referrerPolicy='strict-origin-when-cross-origin';frame.setAttribute('aria-hidden','true');
+  layer.append(frame);stage.append(layer);
+}
+function assetUrl(data,url){const src=str(data||url||'').trim();return /^data:image\/(?:png|jpeg|webp|gif);base64,[a-zA-Z0-9+/=]+$/.test(src)||/^https:\/\//i.test(src)?src:''}
+function stageWidth(w){return clamp(Number(w.width)||1000,520,1600)}
+function stageHeight(w){return clamp(Number(w.height)||560,300,1000)}
+function applyBg(el,w){const photoOnly=!!w.photoOnly;const opacity=clamp(Number(w.bgOpacity??100),0,100)/100;el.style.backgroundColor=(photoOnly||w.liveBgOnly)?'transparent':hexAlpha(w.bg||'#fff9eb',opacity);el.style.color=w.ink||'#4c322c';el.style.fontFamily=fontFamily(w.font||'pt');el.style.borderRadius=photoOnly?'0px':(Number(w.radius)||0)+'px';el.style.setProperty('--win-image-opacity',clamp(Number(w.bgImageOpacity??100),0,100)/100);const url=assetUrl(w.bgImage,w.bgUrl);el.style.setProperty('--win-image',url?'url("'+url.replace(/["\\]/g,'')+'")':'none');el.style.setProperty('--win-image-fit',w.bgFit||'contain');el.style.border=!photoOnly&&!w.liveBgOnly&&w.borderShow?`${clamp(Number(w.borderWidth)||0,0,24)}px solid ${w.borderColor||'#b9a28b'}`:'none';const power=clamp(Number(w.glowStrength??45),0,100)/100;
+ const blur=clamp(Number(w.glowBlur??42),10,100),spread=clamp(Number(w.glowSpread??8),0,38),tone=w.glowColor||'#e9baa5';
+ if(w.glowOn&&power>0){el.style.boxShadow=photoOnly?'none':`0 0 ${blur}px ${spread}px ${hexAlpha(tone,power*.33)}, 0 0 ${Math.round(blur*2)}px ${Math.round(spread+blur*.38)}px ${hexAlpha(tone,power*.13)}`;el.style.filter=photoOnly?`drop-shadow(0 0 ${blur}px ${hexAlpha(tone,power*.32)}) drop-shadow(0 0 ${Math.round(blur*1.4)}px ${hexAlpha(tone,power*.19)})`:'none'}
+ else{el.style.boxShadow='none';el.style.filter='none'}
+}
+function hexAlpha(hex,alpha){const match=/^#([0-9a-f]{6})$/i.exec(hex);if(!match)return 'rgba(255,255,255,'+alpha+')';const n=parseInt(match[1],16);return `rgba(${(n>>16)&255},${(n>>8)&255},${n&255},${alpha})`}
+function setFieldColors(el,raw){const p=fieldData(raw);el.style.setProperty('--mini-bg',hexAlpha(p.fieldBg,clamp(Number(p.fieldOpacity??100),0,100)/100));el.style.setProperty('--mini-border',p.fieldBorder);el.style.setProperty('--mini-border-style',['solid','dashed','dotted','none'].includes(p.fieldBorderStyle)?p.fieldBorderStyle:'dashed');el.style.setProperty('--mini-ink',p.fieldInk);el.style.setProperty('--mini-radius',clamp(Number(p.fieldRadius??18),0,60)+'px')}
+function addFieldImage(area,it){const src=assetUrl(it.fieldImage,it.fieldImageUrl);if(!src)return;const img=elem('img','fieldDecor');img.src=src;img.alt='';img.draggable=false;img.style.setProperty('--image-width',clamp(Number(it.imageScaleX)||160,60,300)+'%');img.style.setProperty('--image-height',clamp(Number(it.imageScaleY)||155,60,300)+'%');img.style.setProperty('--image-offset-x',(Number(it.imageOffsetX)||0)+'px');img.style.setProperty('--image-offset-y',(Number(it.imageOffsetY)||0)+'px');area.append(img)}
+async function readPicture(file,maxW=1200,maxH=900){if(!file||!file.type.startsWith('image/'))throw Error('Выбери изображение PNG, JPG или WebP');return await new Promise((resolve,reject)=>{const url=URL.createObjectURL(file);const img=new Image();img.onload=()=>{try{let scale=Math.min(1,maxW/img.width,maxH/img.height);const canvas=document.createElement('canvas');canvas.width=Math.max(1,Math.round(img.width*scale));canvas.height=Math.max(1,Math.round(img.height*scale));const ctx=canvas.getContext('2d');ctx.drawImage(img,0,0,canvas.width,canvas.height);let packed=canvas.toDataURL('image/webp',.76);if(!packed.startsWith('data:image/webp'))packed=canvas.toDataURL('image/png');URL.revokeObjectURL(url);resolve(packed)}catch(e){URL.revokeObjectURL(url);reject(e)}};img.onerror=()=>{URL.revokeObjectURL(url);reject(Error('Не получилось открыть изображение'))};img.src=url})}
+function allVariants(v){return str(v).split('|').map(norm).filter(Boolean)}
+function checkAnswer(it,value){return allVariants(it.answer).includes(norm(value))}
+function singularErrors(n){let mod=n%100,last=n%10;return mod>=11&&mod<=14?'ошибок':last===1?'ошибка':last>=2&&last<=4?'ошибки':'ошибок'}
+function messageErrors(n){return n===0?'✓ Всё правильно!':`Проверь ещё раз: здесь ${n===1?'допущена':'допущено'} ${n} ${singularErrors(n)}.`}
+function parseWords(it){return str(it.words).split('\n').map(s=>s.trim()).filter(Boolean)}
+function shuffledOrder(words,id){const a=words.map((word,index)=>({word,index}));if(a.length<=1)return a;let hash=0;for(const c of str(id))hash=(Math.imul(hash,33)+c.charCodeAt(0))|0;const shuffled=a.slice();for(let i=shuffled.length-1;i>0;i--){hash=(Math.imul(hash,1664525)+1013904223)|0;const j=(hash>>>0)%(i+1);[shuffled[i],shuffled[j]]=[shuffled[j],shuffled[i]]}if(shuffled.every((item,i)=>item.index===i))shuffled.reverse();return shuffled}
+function growTextToFit(it,w,{fitWidth=false,shrink=false}={}){
+ if(it.kind!=='text')return false;
+ const maxWidth=Math.max(40,stageWidth(w)-Number(it.x||0)),maxHeight=Math.max(25,stageHeight(w)-Number(it.y||0));
+ const probe=document.createElement('div');
+ Object.assign(probe.style,{position:'fixed',visibility:'hidden',pointerEvents:'none',left:'-20000px',top:'0',zIndex:'-1',boxSizing:'border-box',fontFamily:it.font&&it.font!=='inherit'?fontFamily(it.font):fontFamily(w.font||'pt'),fontSize:(Number(it.size)||28)+'px',fontWeight:it.bold?'800':'400',lineHeight:String(clamp(Number(it.lineHeight??1.27),.8,3)),whiteSpace:'pre-wrap',overflowWrap:'break-word',wordBreak:'normal',padding:it.textBgOn?(Number(it.textPad??9))+'px':'2px'});
+ probe.textContent=it.text||' ';document.body.append(probe);
+ let width=clamp(Number(it.w)||120,40,maxWidth);
+ if(fitWidth){probe.style.width='max-content';probe.style.whiteSpace='pre';const natural=Math.ceil(probe.getBoundingClientRect().width)+6;width=Math.min(maxWidth,Math.max(40,natural))}
+ probe.style.width=width+'px';probe.style.whiteSpace='pre-wrap';const needed=Math.ceil(probe.getBoundingClientRect().height)+7;probe.remove();
+ const newHeight=Math.min(maxHeight,Math.max(25,shrink?needed:Math.max(Number(it.h)||25,needed)));
+ const changed=it.w!==width||it.h!==newHeight;it.w=Math.round(width);it.h=Math.round(newHeight);return changed;
+}
+function fitInlineHeight(it,w,{shrink=false}={}){
+ if(it.kind!=='inline')return false;const probe=document.createElement('div');
+ Object.assign(probe.style,{position:'fixed',left:'-20000px',top:'0',visibility:'hidden',boxSizing:'border-box',width:it.w+'px',fontSize:(Number(it.size)||28)+'px',fontFamily:it.font&&it.font!=='inherit'?fontFamily(it.font):fontFamily(w.font||'pt'),lineHeight:String(it.lineHeight??1.38)});
+ probe.append(makeInlineTask(it,null,false));document.body.append(probe);const needed=Math.ceil(probe.getBoundingClientRect().height)+16;probe.remove();
+ const height=clamp(shrink?needed:Math.max(Number(it.h)||40,needed),40,Math.max(40,stageHeight(w)-it.y));const changed=it.h!==height;it.h=height;return changed;
+}
+function updateQuickTools(){
+ const it=getItem(),bar=$('quickControls'),title=$('quickTitle');if(!bar||!title)return;
+ const count=currentSelection().length;bar.hidden=!!preview||!it||count>1;
+ if(count>1){title.textContent='Выделено '+count+' объекта · перетаскивай всю группу мышью';return}if(!it){title.textContent=preview?'Режим ученика: попробуй заполнить ответы':'① Выбери текст или окошко на слайде · ② Потяни за маркеры · ③ Проверь как ученик';return}
+ const names={text:'✎ Текст',input:'▭ Поле ввода',select:'▾ Выпадающий список',sequence:'⇄ Порядок слов',inline:'✦ Задание из текста'};
+ title.textContent=selectedInlineSlot()?`▭ Окошко № ${inlineSlotSelection.index+1} (внутри текста)`:names[it.kind]||'Элемент';
+ const activeSlot=selectedInlineSlot();$('quickFontSize').value=Number(it.size)||28;$('quickWidth').value=activeSlot?activeSlot.dims.w:Number(it.w)||100;$('quickHeight').value=activeSlot?activeSlot.dims.h:Number(it.h)||60;
+ $('quickEditText').hidden=it.kind!=='text';$('quickFit').hidden=it.kind!=='text';$('quickLineHeight').hidden=!['text','inline'].includes(it.kind);$('quickLineLabel').hidden=!['text','inline'].includes(it.kind);$('quickLineHeight').value=Number(it.lineHeight??1.27).toFixed(2);
+}
+function startInlineTextEditor(){
+ const it=getItem();if(!it||it.kind!=='text'||preview)return;
+ let area=$('stage').querySelector('.piece[data-id="'+it.id+'"]');if(!area)return;
+ const original=it.text||'';area.contentEditable='true';area.classList.add('inline-editing');area.focus();
+ let finished=false;
+ function end(cancel=false){if(finished)return;finished=true;area.contentEditable='false';it.text=cancel?original:area.innerText.replace(/\r/g,'').replace(/\n$/,'');if(it.autoTextHeight!==false)growTextToFit(it,getWin());persist();renderStage();renderInspector()}
+ const down=ev=>ev.stopPropagation();
+ area.addEventListener('pointerdown',down,{capture:true});
+ area.addEventListener('keydown',ev=>{ev.stopPropagation();if(ev.key==='Escape'){ev.preventDefault();end(true)}else if(ev.key==='Enter'&&(ev.ctrlKey||ev.metaKey)){ev.preventDefault();end()} });
+ area.addEventListener('blur',()=>end(),{once:true});
+}
+function refreshFloatingHandles(it,w){const stage=$('stage');if(!stage)return;const fac=Math.max(.1,stage.getBoundingClientRect().width/stageWidth(w));const grip=Math.max(13,17/fac);
+  stage.querySelectorAll('.elementResizeHandle').forEach(h=>{const edge=h.dataset.edge;
+    const x=it.x+(edge.includes('w')?0:edge.includes('e')?it.w:it.w/2),y=it.y+(edge.includes('n')?0:edge.includes('s')?it.h:it.h/2);
+    Object.assign(h.style,{left:(x-grip/2)+'px',top:(y-grip/2)+'px',width:grip+'px',height:grip+'px'});
+  });}
+function addElementHandles(area,it,w){
+ const stage=$('stage');const edges=['nw','n','ne','e','se','s','sw','w'];
+ const ratio=()=>Math.max(.1,stage.getBoundingClientRect().width/stageWidth(w));
+ function location(h,edge){const x=it.x+(edge.includes('w')?0:edge.includes('e')?it.w:it.w/2),y=it.y+(edge.includes('n')?0:edge.includes('s')?it.h:it.h/2);const grip=Math.max(13,17/ratio());h.style.width=grip+'px';h.style.height=grip+'px';h.style.left=(x-grip/2)+'px';h.style.top=(y-grip/2)+'px'}
+ for(const edge of edges){const h=elem('div','elementResizeHandle');h.dataset.edge=edge;
+ h.title=['text','inline'].includes(it.kind)&&edge.length===2?'Увеличить или уменьшить текст вместе со шрифтом':'Изменить размер элемента';location(h,edge);
+ h.addEventListener('pointerdown',ev=>{if(ev.button!==0)return;ev.preventDefault();ev.stopPropagation();h.setPointerCapture(ev.pointerId);
+  const initial={x:it.x,y:it.y,w:it.w,h:it.h,size:it.size||28};const sx=ev.clientX,sy=ev.clientY;const fac=ratio();const scaleText=['text','inline'].includes(it.kind)&&edge.length===2;
+  if(it.kind==='text'){it.autoTextWidth=false;it.autoTextHeight=false;}if(it.kind==='inline')it.autoTextHeight=false;
+  const move=e=>{if(e.pointerId!==ev.pointerId)return;const dx=(e.clientX-sx)/fac,dy=(e.clientY-sy)/fac;
+   let x=initial.x,y=initial.y,width=initial.w,height=initial.h;
+   if(edge.includes('e'))width=initial.w+dx;if(edge.includes('w')){width=initial.w-dx;x=initial.x+dx}
+   if(edge.includes('s'))height=initial.h+dy;if(edge.includes('n')){height=initial.h-dy;y=initial.y+dy}
+   width=clamp(Math.round(width),it.kind==='text'?35:75,stageWidth(w));height=clamp(Math.round(height),it.kind==='text'?25:36,stageHeight(w));
+   x=clamp(Math.round(x),0,Math.max(0,stageWidth(w)-width));y=clamp(Math.round(y),0,Math.max(0,stageHeight(w)-height));
+   width=Math.min(width,stageWidth(w)-x);height=Math.min(height,stageHeight(w)-y);
+   if(scaleText){ // Scale typography and frame uniformly, like a graphic element.
+    const factor=Math.max(.2,Math.min(5,(width/Math.max(1,initial.w)+height/Math.max(1,initial.h))/2));
+    it.size=clamp(Math.round(initial.size*factor),9,180);
+   }
+   Object.assign(it,{x,y,w:width,h:height});Object.assign(area.style,{left:x+'px',top:y+'px',width:width+'px',height:height+'px'});
+   if(scaleText)area.style.fontSize=it.size+'px';
+   stage.querySelectorAll('.elementResizeHandle').forEach(handle=>location(handle,handle.dataset.edge));
+   updateQuickTools();
+  };
+  const done=e=>{if(e.pointerId!==ev.pointerId)return;h.removeEventListener('pointermove',move);h.removeEventListener('pointerup',done);h.removeEventListener('pointercancel',done);
+   // Size chosen by mouse always wins: never expand the frame after resizing.
+   persist();renderStage();renderInspector();
+  };
+  h.addEventListener('pointermove',move);h.addEventListener('pointerup',done);h.addEventListener('pointercancel',done);
+ });stage.append(h)
+ }
+}
+// A slot is a sub-element of an inline exercise, not an independently positioned object.
+// Clicking normal text selects and moves the entire exercise, while clicking a slot
+// selects only that slot. Its width/height overrides are stored per slot number.
+function selectedInlineSlot(){
+ if(!inlineSlotSelection||preview)return null;
+ const it=getItem();if(!it||it.kind!=='inline'||it.id!==inlineSlotSelection.parentId||selectedIds.size!==1)return null;
+ const index=inlineSlotSelection.index,part=inlineFieldParts(it)[index];
+ return part?{it,index,part,dims:inlineSlotDimensions(it,index,part)}:null;
+}
+function saveInlineSlotDimension(it,index,key,value){
+ if(!it.slotOverrides||typeof it.slotOverrides!=='object')it.slotOverrides={};
+ const previous=it.slotOverrides[index]||{};
+ it.slotOverrides[index]={...previous,[key]:key==='w'?clamp(Math.round(Number(value)||26),26,700):clamp(Math.round(Number(value)||24),24,160)};
+}
+function slotPosition(stage,mock,w){
+ const rect=mock.getBoundingClientRect(),sr=stage.getBoundingClientRect(),fac=Math.max(.1,sr.width/stageWidth(w));
+ return{x:(rect.left-sr.left)/fac,y:(rect.top-sr.top)/fac,w:rect.width/fac,h:rect.height/fac};
+}
+function addInlineSlotHandles(){
+ const selection=selectedInlineSlot();if(!selection)return;
+ const stage=$('stage'),w=getWin(),mock=stage.querySelector('.piece[data-id="'+selection.it.id+'"] .inlineMock[data-slot-index="'+selection.index+'"]');
+ if(!mock)return;
+ const outline=elem('div','inlineSlotOutline');stage.append(outline);
+ const edges=['nw','n','ne','e','se','s','sw','w'];
+ const handles=[];
+ const layout=()=>{const p=slotPosition(stage,mock,w);Object.assign(outline.style,{left:(p.x-3)+'px',top:(p.y-3)+'px',width:(p.w+6)+'px',height:(p.h+6)+'px'});
+   for(const h of handles){const edge=h.dataset.edge;const x=p.x+(edge.includes('w')?0:edge.includes('e')?p.w:p.w/2),y=p.y+(edge.includes('n')?0:edge.includes('s')?p.h:p.h/2);
+    h.style.left=(x-6.5)+'px';h.style.top=(y-6.5)+'px';}
+ };
+ for(const edge of edges){const handle=elem('div','inlineSlotHandle');handle.dataset.edge=edge;handle.title='Изменить размер только этого окошка';
+  handle.addEventListener('pointerdown',ev=>{if(ev.button!==0)return;ev.preventDefault();ev.stopPropagation();handle.setPointerCapture(ev.pointerId);
+   const original=inlineSlotDimensions(selection.it,selection.index,selection.part),x0=ev.clientX,y0=ev.clientY,fac=Math.max(.1,stage.getBoundingClientRect().width/stageWidth(w));
+   const onMove=e=>{if(e.pointerId!==ev.pointerId)return;const dx=(e.clientX-x0)/fac,dy=(e.clientY-y0)/fac;
+    const nw=edge.includes('e')?original.w+dx:edge.includes('w')?original.w-dx:original.w;
+    const nh=edge.includes('s')?original.h+dy:edge.includes('n')?original.h-dy:original.h;
+    saveInlineSlotDimension(selection.it,selection.index,'w',nw);
+    saveInlineSlotDimension(selection.it,selection.index,'h',nh);
+    const updated=inlineSlotDimensions(selection.it,selection.index,selection.part);mock.style.width=updated.w+'px';mock.style.height=updated.h+'px';mock.style.setProperty('--slot-height',updated.h+'px');mock.classList.toggle('shortSlot',updated.w<75);mock.textContent=selection.part.type==='select'?'Выбери… ▾':updated.w<75?'':'Ответ';
+    layout();const qw=$('quickWidth'),qh=$('quickHeight');if(qw)qw.value=updated.w;if(qh)qh.value=updated.h;
+    const sw=$('slotSelectedWidth'),sh=$('slotSelectedHeight');if(sw)sw.value=updated.w;if(sh)sh.value=updated.h;
+   };
+   const done=e=>{if(e.pointerId!==ev.pointerId)return;handle.removeEventListener('pointermove',onMove);handle.removeEventListener('pointerup',done);handle.removeEventListener('pointercancel',done);
+    fitInlineHeight(selection.it,w);persist();renderStage();renderInspector();
+   };
+   handle.addEventListener('pointermove',onMove);handle.addEventListener('pointerup',done);handle.addEventListener('pointercancel',done);
+  });stage.append(handle);handles.push(handle);
+ }
+ layout();
+}
+function inlineSlotInspector(){
+ const choice=selectedInlineSlot();if(!choice)return '';
+ const {it,index,part,dims}=choice;
+ const description=part.type==='select'?'Выпадающий список':'Поле ввода';
+ return `<div class="propertyHead">Окошко № ${index+1} · ${description}</div>
+ <div class="slotInspectorIntro">Выбрано только одно окошко внутри текста. Потяни за синие маркеры на нём или введи размеры ниже. Остальные окошки не изменятся.<br><button type="button" id="selectWholeInline">↩ Выделить весь текст</button></div>
+ <label class="fieldLabel">Правильный ответ</label><div class="infoBox">${esc(part.answer)}</div>
+ <div class="twoCols"><div><label class="fieldLabel">Ширина, px</label><input id="slotSelectedWidth" class="editInput" type="number" min="26" max="700" step="1" value="${dims.w}"></div>
+ <div><label class="fieldLabel">Высота, px</label><input id="slotSelectedHeight" class="editInput" type="number" min="24" max="160" step="1" value="${dims.h}"></div></div>
+ <p class="help">Для одной буквы подойдёт ширина 30–45 px. Для длинного слова можешь увеличить её отдельно. Окошко останется внутри общего текста.</p>
+ <button class="tiny" type="button" id="slotResetSize">↺ Вернуть автоматический размер этого окошка</button>
+ <div class="buttonsRow"><button type="button" class="tiny" id="selectWholeInlineBottom">↩ Настройки всего задания</button></div>`;
+}
+function connectSlotInspector(){
+ const choice=selectedInlineSlot();if(!choice)return;
+ const chooseParent=()=>{inlineSlotSelection=null;renderStage();renderInspector()};
+ for(const id of ['selectWholeInline','selectWholeInlineBottom'])$(id)?.addEventListener('click',chooseParent);
+ for(const [id,key] of [['slotSelectedWidth','w'],['slotSelectedHeight','h']])$(id)?.addEventListener('change',ev=>{
+  saveInlineSlotDimension(choice.it,choice.index,key,ev.target.value);fitInlineHeight(choice.it,getWin());persist();renderStage();renderInspector()});
+ $('slotResetSize')?.addEventListener('click',()=>{if(choice.it.slotOverrides)delete choice.it.slotOverrides[choice.index];fitInlineHeight(choice.it,getWin());persist();renderStage();renderInspector()});
+}
+// V7: selection and smart guides — these objects exist only inside editor, never in exported viewer.
+function currentSelection(){return getWin().items.filter(it=>selectedIds.has(it.id))}
+function selectOnly(id){inlineSlotSelection=null;selectedIds=new Set(id?[id]:[]);chosen=id||null}
+function ensureSelection(){const valid=new Set(getWin().items.map(it=>it.id));for(const id of [...selectedIds])if(!valid.has(id))selectedIds.delete(id);if(!chosen||!valid.has(chosen))chosen=selectedIds.values().next().value||null;if(chosen&&!selectedIds.size)selectedIds.add(chosen)}
+function selectedBounds(items){if(!items.length)return{x:0,y:0,w:0,h:0};const x=Math.min(...items.map(it=>it.x)),y=Math.min(...items.map(it=>it.y));return{x,y,w:Math.max(...items.map(it=>it.x+it.w))-x,h:Math.max(...items.map(it=>it.y+it.h))-y}}
+function displaySelection(){const stage=$('stage');stage.querySelectorAll('.piece').forEach(area=>{const on=selectedIds.has(area.dataset.id);area.classList.toggle('selected',on&&selectedIds.size===1);area.classList.toggle('multi-selected',on&&selectedIds.size>1)});stage.querySelectorAll('.multiSelectionOutline').forEach(e=>e.remove());const selected=currentSelection();if(selected.length<2||preview)return;const b=selectedBounds(selected),rect=elem('div','multiSelectionOutline');Object.assign(rect.style,{left:(b.x-5)+'px',top:(b.y-5)+'px',width:(b.w+10)+'px',height:(b.h+10)+'px'});rect.dataset.count=selected.length+' выделено';stage.append(rect)}
+function guideLayer(){let layer=$('stage').querySelector('.guideOverlay');if(!layer){layer=elem('div','guideOverlay');$('stage').append(layer)}return layer}
+function clearGuides(){const layer=$('stage').querySelector('.guideOverlay');if(layer)layer.replaceChildren()}
+function drawGuideLine(layer,axis,at){const line=elem('div','guide-line '+(axis==='x'?'vertical':'horizontal'));if(axis==='x')line.style.left=at+'px';else line.style.top=at+'px';layer.append(line)}
+function drawGap(layer,axis,a,b,c){if(b<a)[a,b]=[b,a];if(b-a<4)return;const line=elem('div','gap-guide '+(axis==='x'?'horizontal':'vertical'));const distance=Math.round(b-a);if(axis==='x')Object.assign(line.style,{left:a+'px',top:c+'px',width:(b-a)+'px'});else Object.assign(line.style,{top:a+'px',left:c+'px',height:(b-a)+'px'});const label=elem('span','',distance+' px');line.append(label);layer.append(line)}
+function overlaps(a,b,axis){return axis==='x'?(a.y<b.y+b.h&&a.y+a.h>b.y):(a.x<b.x+b.w&&a.x+a.w>b.x)}
+function smartSnap(w,orig,dx,dy,excluded,alt){const threshold=9,others=w.items.filter(o=>!excluded.has(o.id)),layer=guideLayer();layer.replaceChildren();const box={x:orig.x+dx,y:orig.y+dy,w:orig.w,h:orig.h};
+ function find(axis){const p=axis==='x'?'x':'y',len=axis==='x'?'w':'h',from=box[p],end=from+box[len],mid=from+box[len]/2,proposal=[];const stageLen=axis==='x'?stageWidth(w):stageHeight(w);
+  for(const target of [0,stageLen/2,stageLen])for(const [position,name] of [[from,'left'],[mid,'center'],[end,'right']]){const delta=target-position;if(Math.abs(delta)<=threshold)proposal.push({delta,coord:target,kind:'align',rank:1})}
+  for(const o of others)for(const target of [o[p],o[p]+o[len]/2,o[p]+o[len]])for(const position of [from,mid,end]){const delta=target-position;if(Math.abs(delta)<=threshold)proposal.push({delta,coord:target,kind:'align',rank:0})}
+  const relevant=others.filter(o=>overlaps(o,box,axis));const before=relevant.filter(o=>o[p]+o[len]<=from).sort((a,b)=>(b[p]+b[len])-(a[p]+a[len]))[0];const after=relevant.filter(o=>o[p]>=end).sort((a,b)=>a[p]-b[p])[0];
+  if(before&&after){const left=before[p]+before[len],right=after[p];if(right-left>=box[len]){const goal=(left+right-box[len])/2,delta=goal-from;if(Math.abs(delta)<=threshold)proposal.push({delta,kind:'gap',rank:-1,before:left,after:right})}}
+  // Match a nearby gap to an existing pair elsewhere on the canvas.
+  const refGaps=[];for(let i=0;i<others.length;i++)for(let j=i+1;j<others.length;j++){const a=others[i],b=others[j];if(!overlaps(a,b,axis))continue;const gap=(a[p]<b[p]?b[p]-a[p]-a[len]:a[p]-b[p]-b[len]);if(gap>=5&&gap<=280)refGaps.push(gap)}
+  for(const ref of refGaps)for(const o of relevant){const beforeEnd=o[p]+o[len],afterStart=o[p];if(beforeEnd<=from+threshold){const target=beforeEnd+ref,delta=target-from;if(Math.abs(delta)<=threshold)proposal.push({delta,kind:'gap1',rank:1,before:beforeEnd,after:target})}if(afterStart>=end-threshold){const target=afterStart-ref-box[len],delta=target-from;if(Math.abs(delta)<=threshold)proposal.push({delta,kind:'gap1',rank:1,before:target+box[len],after:afterStart})}}
+  proposal.sort((a,b)=>(Math.abs(a.delta)+a.rank*.15)-(Math.abs(b.delta)+b.rank*.15));return proposal[0]||null;
+ }
+ const x=find('x'),y=find('y');if(state.snap!==false&&!alt){if(x)dx+=x.delta;if(y)dy+=y.delta}
+ for(const [axis,pick] of [['x',x],['y',y]]){if(!pick||state.guides===false)continue;const updated={x:orig.x+dx,y:orig.y+dy,w:orig.w,h:orig.h};if(pick.kind==='align')drawGuideLine(layer,axis,pick.coord);else if(pick.kind==='gap'&&state.snap!==false&&!alt){const c=axis==='x'?updated.y+updated.h/2:updated.x+updated.w/2;if(axis==='x'){drawGap(layer,'x',pick.before,updated.x,c);drawGap(layer,'x',updated.x+updated.w,pick.after,c)}else{drawGap(layer,'y',pick.before,updated.y,c);drawGap(layer,'y',updated.y+updated.h,pick.after,c)}}else if(pick.kind==='gap1'&&state.snap!==false&&!alt){const c=axis==='x'?updated.y+updated.h/2:updated.x+updated.w/2;drawGap(layer,axis,pick.before,pick.after,c)}}return{dx,dy}}
+function selectionInspector(){const n=currentSelection().length;return '<div class="propertyHead">Выделено: '+n+' объекта</div><p class="propertyDescription">Перетащи любой из выделенных элементов мышью — остальные переместятся вместе. Чтобы добавить или убрать элемент из группы, удерживай Shift и нажми на него.</p><div class="infoBox">Для группы доступны обычные кнопки <b>«Дублировать»</b> и <b>«Удалить»</b> над рабочим полем. При перетаскивании автоматически появляются направляющие для ровного расположения.</div>'}function makeField(it,notify){const wrapper=elem('div','answerField');setFieldColors(wrapper,it);
+ const element=it.kind==='select'?document.createElement('select'):(it.multiline?document.createElement('textarea'):document.createElement('input'));
+ if(it.kind==='select'){const first=document.createElement('option');first.value='';first.textContent=it.placeholder||'Выбери...';element.append(first);str(it.options||'').split('\n').map(s=>s.trim()).filter(Boolean).forEach(s=>{const option=document.createElement('option');option.value=s;option.textContent=s;element.append(option)})}
+ else{if(!it.multiline)element.type='text';element.placeholder=it.placeholder===undefined?'Введи ответ':it.placeholder;element.autocomplete='off';element.spellcheck=false}
+ element.style.fontSize=(Number(it.size)||27)+'px';element.style.fontFamily=it.font&&it.font!=='inherit'?fontFamily(it.font):'inherit';element.setAttribute('aria-label',it.kind==='select'?'Выбрать ответ':'Ввести ответ');element.setAttribute('data-field-id',it.id);wrapper.append(element);
+ const clear=()=>{wrapper.classList.remove('correct','wrong');notify?.('change',it)};
+ element.addEventListener('input',()=>{if(it.kind!=='select')clear()});if(it.kind==='select')element.addEventListener('change',()=>{clear();if(element.value)notify?.('enter',it,wrapper)});
+ element.addEventListener('keydown',ev=>{if(ev.key==='Enter'&&!ev.shiftKey){ev.preventDefault();notify?.('enter',it,wrapper);element.blur()}});
+ wrapper.verify=(show=true)=>{const okay=checkAnswer(it,element.value);if(show){wrapper.classList.remove('correct','wrong');wrapper.classList.add(okay?'correct':'wrong')}return okay};
+ wrapper.setGroupResult=(allCorrect)=>{wrapper.classList.remove('correct','wrong');wrapper.classList.add(allCorrect?'correct':'wrong')};
+ wrapper.reset=()=>{element.value='';wrapper.classList.remove('correct','wrong')};wrapper.value=()=>element.value;wrapper.item=it;
+ return wrapper}
+function parseInlineParts(value){
+ const source=str(value),rx=/\|([^|\r\n]+)\|/g,parts=[];let index=0,m;
+ while((m=rx.exec(source))){if(m.index>index)parts.push({type:'text',text:source.slice(index,m.index)});const values=m[1].split('/').map(v=>v.trim()).filter(Boolean);if(values.length){parts.push({type:values.length>1?'select':'input',answer:values[0],options:values})}else parts.push({type:'text',text:m[0]});index=rx.lastIndex}
+ if(index<source.length)parts.push({type:'text',text:source.slice(index)});return parts;
+}
+function inlineFieldParts(it){return parseInlineParts(it.markup).filter(p=>p.type!=='text')}
+function inlineSlotDimensions(it,index,part){
+ const saved=it.slotOverrides&&it.slotOverrides[index]||{};
+ const globalWidth=clamp(Number(part.type==='select'?it.slotSelectWidth:it.slotWidth)||185,26,700);
+ const height=clamp(Number(saved.h??it.slotHeight)||58,24,160);
+ let width=globalWidth;
+ // For a single-letter or short spelling gap, make the slot as compact as its answer.
+ // Individual widths always take precedence over automatic sizing.
+ if(part.type==='input'&&it.autoShortSlots!==false){
+  const length=[...str(part.answer||'')].length;
+  if(length<=3){const font=Math.round((it.size||31)*.77);width=Math.min(globalWidth,Math.max(32,Math.ceil(length*font*.64+22)))}
+ }
+ if(saved.w!=null)width=Number(saved.w);
+ return{w:clamp(Math.round(width),26,700),h:Math.round(height)};
+}
+function makeInlineTask(it,notify,interactive){
+ const wrapper=elem('div','inlineTask');wrapper.style.lineHeight=String(clamp(Number(it.lineHeight??1.38),.8,3));const fields=[];let slotIndex=0;
+ parseInlineParts(it.markup).forEach(part=>{
+  if(part.type==='text'){wrapper.append(document.createTextNode(part.text));return}
+  const index=slotIndex++,dims=inlineSlotDimensions(it,index,part),width=dims.w,height=dims.h;
+  const slot={...fieldData(it),id:it.id+':'+index,kind:part.type,answer:part.answer,options:(part.options||[]).join('\n'),placeholder:part.type==='select'?'Выбери...':width<75?'':'Ответ',multiline:false,font:it.font||'inherit',size:Math.min(Math.round((it.size||31)*.77),Math.max(13,height-10)),groupId:''};
+  if(interactive){const control=makeField(slot,notify);control.classList.add('inlineAnswer');control.dataset.slotIndex=index;control.style.width=width+'px';control.style.height=height+'px';control.style.setProperty('--slot-height',height+'px');if(width<75){control.classList.add('shortSlot');control.querySelector('input')?.setAttribute('placeholder','')}wrapper.append(control);fields.push(control)}
+  else {const mock=elem('span','inlineMock',part.type==='select'?'Выбери… ▾':width<75?'': 'Ответ');setFieldColors(mock,slot);mock.dataset.slotIndex=index;mock.classList.toggle('shortSlot',width<75);mock.style.width=width+'px';mock.style.height=height+'px';mock.style.setProperty('--slot-height',height+'px');wrapper.append(mock)}
+ });wrapper.fields=fields;return wrapper;
+}
+function makeSequence(it,notify){
+ const wrapper=elem('div','sequenceField');setFieldColors(wrapper,it);wrapper.tabIndex=-1;
+ wrapper.style.setProperty('--chip-font',(Number(it.size)||27)+'px');wrapper.style.fontFamily=it.font&&it.font!=='inherit'?fontFamily(it.font):'inherit';let cards=shuffledOrder(parseWords(it),it.id),selected=-1;
+ let dragging=false,suppressClick=false;
+ const renderCards=()=>{wrapper.innerHTML='';const contents=elem('div','seqChips');wrapper.append(contents);
+ cards.forEach((item,index)=>{const chip=elem('button','seqChip',item.word);chip.type='button';chip.tabIndex=0;chip.setAttribute('aria-label',`Слово ${item.word}, позиция ${index+1}`);chip.dataset.index=index;
+ if(selected===index)chip.classList.add('selected-chip');chip.addEventListener('pointerdown',ev=>{
+ if(ev.button!==0)return;let startX=ev.clientX,startY=ev.clientY,ghost=null,slot=null,active=false;
+ const originalRect=chip.getBoundingClientRect();const scale=originalRect.width/Math.max(1,chip.offsetWidth);
+ const mark=()=>{active=true;dragging=true;suppressClick=true;chip.classList.add('dragging');ghost=chip.cloneNode(true);ghost.className='seqChip seqDragGhost';Object.assign(ghost.style,{width:originalRect.width+'px',height:originalRect.height+'px',fontSize:((Number(it.size)||27)*scale)+'px',left:(ev.clientX-originalRect.width/2)+'px',top:(ev.clientY-originalRect.height/2)+'px'});document.body.append(ghost);slot=elem('div','seqDropTarget');slot.style.width=originalRect.width+'px';slot.style.height=originalRect.height+'px';contents.insertBefore(slot,chip);chip.remove()};
+ const move=moveEv=>{if(moveEv.pointerId!==ev.pointerId)return;const dx=moveEv.clientX-startX,dy=moveEv.clientY-startY;if(!active&&Math.hypot(dx,dy)>5)mark();if(!active)return;moveEv.preventDefault();ghost.style.left=(moveEv.clientX-originalRect.width/2)+'px';ghost.style.top=(moveEv.clientY-originalRect.height/2)+'px';const others=Array.from(contents.children).filter(c=>c!==slot);if(!others.length)return;let best=others[0],bestD=Infinity;for(const c of others){const r=c.getBoundingClientRect(),cx=r.left+r.width/2,cy=r.top+r.height/2,d=(moveEv.clientX-cx)**2+(moveEv.clientY-cy)**2;if(d<bestD){bestD=d;best=c}}const rect=best.getBoundingClientRect();const after=(moveEv.clientY>rect.bottom?true:moveEv.clientY<rect.top?false:moveEv.clientX>rect.left+rect.width/2);contents.insertBefore(slot,after?best.nextSibling:best)};
+ const finish=endEv=>{if(endEv.pointerId!==ev.pointerId)return;document.removeEventListener('pointermove',move);document.removeEventListener('pointerup',finish);document.removeEventListener('pointercancel',finish);if(!active)return;const idx=Array.from(contents.children).indexOf(slot);ghost.remove();slot.remove();dragging=false;moveCard(index,idx)};
+ document.addEventListener('pointermove',move,{passive:false});document.addEventListener('pointerup',finish);document.addEventListener('pointercancel',finish)
+ });
+ chip.addEventListener('click',()=>{if(suppressClick){suppressClick=false;return}if(dragging)return;if(selected===-1){selected=index;renderCards();return}if(selected===index){selected=-1;renderCards();return}const a=selected;selected=-1;[cards[a],cards[index]]=[cards[index],cards[a]];wrapper.classList.remove('correct','wrong');renderCards();notify?.('change',it)});
+ chip.addEventListener('keydown',ev=>{if(ev.key==='Escape'){selected=-1;renderCards();return}if(ev.key==='Enter'){ev.preventDefault();notify?.('enter',it,wrapper)}});
+ contents.append(chip)})};
+ function moveCard(from,to){if(from<0||from>=cards.length)return;const [card]=cards.splice(from,1);cards.splice(clamp(to,0,cards.length),0,card);selected=-1;wrapper.classList.remove('correct','wrong');renderCards();notify?.('change',it)}
+ wrapper.verify=(show=true)=>{const isGood=cards.every((x,index)=>x.index===index);if(show){wrapper.classList.remove('correct','wrong');wrapper.classList.add(isGood?'correct':'wrong')}return isGood};
+ wrapper.reset=()=>{cards=shuffledOrder(parseWords(it),it.id);selected=-1;wrapper.classList.remove('correct','wrong');renderCards()};wrapper.value=()=>cards.map(x=>x.word).join(' ');wrapper.item=it;renderCards();return wrapper
+}
+function linkGroups(w,fields){const map=new Map();for(const field of fields){const name=str(field.item.groupId).trim();if(!name||field.item.kind==='sequence')continue;if(!map.has(name))map.set(name,[]);map.get(name).push(field)}return map}
+function maxMatches(actual,expected){const right=expected.map(allVariants),matched=Array(right.length).fill(-1);
+ function visit(i,seen){for(let j=0;j<right.length;j++){if(seen[j]||!actual[i]||!right[j].includes(actual[i]))continue;seen[j]=true;if(matched[j]===-1||visit(matched[j],seen)){matched[j]=i;return true}}return false}
+ let count=0;for(let i=0;i<actual.length;i++)if(visit(i,Array(right.length).fill(false)))count++;return count}
+function checkGroup(w,name,fields){const expected=str(w.groups?.[name]?.answers||'').split('\n').map(s=>s.trim()).filter(Boolean),current=fields.map(f=>norm(f.value()));const matched=maxMatches(current,expected);return{errors:Math.max(fields.length,expected.length)-matched,filled:current.filter(Boolean).length,total:fields.length,invalid:expected.length!==fields.length}}
+function createExercise(stage,w,isViewer){let answerItems=[],status=null,closeTimer=null;stage.style.visibility='visible';stage.style.pointerEvents='auto';insertLiveBackground(stage,w);
+ function showStatus(msg,ok){if(!status)return;status.style.display='inline-block';status.textContent=msg;status.style.color=ok?'#2b8a60':'#a25149'}
+ function clearStatus(){if(status)status.style.display='none';if(closeTimer){clearTimeout(closeTimer);closeTimer=null}}
+ const closes=()=>{stage.style.transition='opacity .22s';stage.style.opacity='0';setTimeout(()=>{stage.style.visibility='hidden';stage.style.pointerEvents='none'},230);try{if(isViewer&&window.parent!==window)window.parent.postMessage({type:'pro-nachalka-widget-close',windowId:w.id},'*')}catch(e){}};
+ function allCorrect(){if(!answerItems.length)return false;const groups=linkGroups(w,answerItems),handled=new Set();for(const [name,controls] of groups){if(checkGroup(w,name,controls).errors!==0)return false;controls.forEach(c=>handled.add(c))}return answerItems.every(c=>handled.has(c)||c.verify(false))}
+ function maybeClose(){if(w.closeOnSuccess&&allCorrect()){showStatus('✓ Всё правильно!',true);closeTimer=setTimeout(closes,900)}}
+ const changed=(type,it,wrapper)=>{clearStatus();if(type!=='enter')return;
+ if(it.kind==='sequence'){const ok=wrapper.verify(true);showStatus(ok?'✓ Последовательность верная!':'Порядок слов пока неверный.',ok);if(ok)maybeClose();return}
+ const groupName=str(it.groupId||'').trim();if(groupName){const group=linkGroups(w,answerItems).get(groupName)||[];const check=checkGroup(w,groupName,group);if(check.filled<check.total){showStatus(`Заполнено ${check.filled} из ${check.total}. Можно вводить ответы в любом порядке.`,false);return}const okay=check.errors===0;group.forEach(f=>f.setGroupResult(okay));showStatus(messageErrors(check.errors),okay);if(okay)maybeClose();return}
+ const okay=wrapper.verify(true);showStatus(okay?'✓ Правильный ответ!':'Попробуй ещё раз.',okay);if(okay)maybeClose()};
+ for(const it of w.items||[]){const area=elem('div',isViewer?'viewPiece':('piece '+(it.kind==='text'?'text-piece':it.kind==='inline'?'inline-piece':'field-piece')+(selectedIds.has(it.id)&&!preview&&inlineSlotSelection?.parentId!==it.id?' selected':'')));
+ area.dataset.id=it.id;Object.assign(area.style,{position:'absolute',left:it.x+'px',top:it.y+'px',width:it.w+'px',height:it.h+'px'});
+ if(it.kind==='text'){area.classList.add(isViewer?'viewtext':'text-piece');Object.assign(area.style,{fontSize:(it.size||28)+'px',fontFamily:it.font&&it.font!=='inherit'?fontFamily(it.font):'inherit',fontWeight:it.bold?'800':'400',textAlign:it.align||'left',lineHeight:String(clamp(Number(it.lineHeight??1.27),.8,3)),whiteSpace:'pre-wrap',overflow:'hidden',background:it.textBgOn?hexAlpha(it.textBg||'#ffffff',clamp(Number(it.textOpacity??90),0,100)/100):'transparent',borderRadius:(it.textRadius??12)+'px',padding:it.textBgOn?(Number(it.textPad??9))+'px':'2px',color:it.textColor||w.ink||'#4c322c'});area.textContent=it.text||''}
+ else if(it.kind==='inline'){area.classList.add('inline-piece');Object.assign(area.style,{fontSize:(it.size||31)+'px',fontFamily:it.font&&it.font!=='inherit'?fontFamily(it.font):'inherit',lineHeight:String(clamp(Number(it.lineHeight??1.38),.8,3)),color:w.ink||'#4c322c',overflow:'hidden'});const inline=makeInlineTask(it,changed,isViewer||preview);area.append(inline);if(isViewer||preview)answerItems.push(...inline.fields);
+  if(!isViewer&&!preview){area.querySelectorAll('.inlineMock').forEach(mock=>mock.addEventListener('pointerdown',ev=>{if(ev.button!==0)return;ev.preventDefault();ev.stopPropagation();selectedIds=new Set([it.id]);chosen=it.id;inlineSlotSelection={parentId:it.id,index:Number(mock.dataset.slotIndex)};renderStage();renderInspector()}))}}
+ else {addFieldImage(area,it);if(isViewer||preview){const control=it.kind==='sequence'?makeSequence(it,changed):makeField(it,changed);control.style.width='100%';control.style.height='100%';area.append(control);answerItems.push(control)}
+ else if(it.kind==='sequence'){const mock=elem('div','sequenceMock');setFieldColors(mock,it);mock.style.setProperty('--chip-font',(Number(it.size)||27)+'px');mock.style.fontFamily=it.font&&it.font!=='inherit'?fontFamily(it.font):'inherit';parseWords(it).forEach(word=>mock.append(elem('span','seqChipMock',word)));area.append(mock)}
+ else{const mock=elem('div','fieldMock');setFieldColors(mock,it);mock.style.fontSize=(it.size||27)+'px';mock.style.fontFamily=it.font&&it.font!=='inherit'?fontFamily(it.font):'inherit';mock.append(elem('span','',it.kind==='select'?'Выбери... ▾':it.placeholder||'Введи ответ'));if(it.kind==='input')mock.append(elem('b','','↵'));area.append(mock)}}
+ if(!isViewer&&!preview){
+ if(it.kind==='text')area.addEventListener('dblclick',ev=>{ev.preventDefault();ev.stopPropagation();selectOnly(it.id);renderStage();renderInspector();startInlineTextEditor()});
+ area.addEventListener('pointerdown',ev=>{if(ev.button!==0||area.isContentEditable)return;ev.preventDefault();ev.stopPropagation();
+   if(ev.shiftKey||ev.ctrlKey||ev.metaKey){if(selectedIds.has(it.id)){selectedIds.delete(it.id);if(chosen===it.id)chosen=selectedIds.values().next().value||null}else{selectedIds.add(it.id);chosen=it.id}renderStage();renderInspector();return}
+   if(!selectedIds.has(it.id)||inlineSlotSelection)selectOnly(it.id);else chosen=it.id;
+   const rect=stage.getBoundingClientRect(),members=currentSelection(),initial=new Map(members.map(obj=>[obj.id,{x:obj.x,y:obj.y}]));
+   drag={id:it.id,pointerId:ev.pointerId,px:ev.clientX,py:ev.clientY,scale:rect.width/stageWidth(w),initial,bounds:selectedBounds(members),moved:false};
+   area.setPointerCapture(ev.pointerId);displaySelection();renderInspector();updateQuickTools();
+ });
+ area.addEventListener('pointermove',ev=>{if(!drag||drag.id!==it.id||drag.pointerId!==ev.pointerId)return;const ratio=drag.scale||1,b=drag.bounds;
+   let dx=(ev.clientX-drag.px)/ratio,dy=(ev.clientY-drag.py)/ratio;
+   dx=clamp(dx,-b.x,stageWidth(w)-b.x-b.w);dy=clamp(dy,-b.y,stageHeight(w)-b.y-b.h);
+   if(Math.hypot(dx,dy)>1)drag.moved=true;
+   if(!drag.moved)return;
+   const snap=smartSnap(w,b,dx,dy,new Set(drag.initial.keys()),ev.altKey);dx=clamp(snap.dx,-b.x,stageWidth(w)-b.x-b.w);dy=clamp(snap.dy,-b.y,stageHeight(w)-b.y-b.h);
+   for(const obj of w.items){const origin=drag.initial.get(obj.id);if(!origin)continue;obj.x=Math.round(origin.x+dx);obj.y=Math.round(origin.y+dy);const node=stage.querySelector('.piece[data-id="'+obj.id+'"]');if(node){node.style.left=obj.x+'px';node.style.top=obj.y+'px'}}
+   displaySelection();if(selectedIds.size===1&&selectedIds.has(it.id))refreshFloatingHandles(it,w);
+ });
+ const finish=ev=>{if(!drag||drag.id!==it.id||drag.pointerId!==ev.pointerId)return;
+   const samePoint=!drag.moved&&Math.hypot(ev.clientX-drag.px,ev.clientY-drag.py)<7,now=Date.now();
+   const wasMulti=selectedIds.size>1;
+   const doubleTap=!wasMulti&&it.kind==='text'&&samePoint&&lastCanvasTap.id===it.id&&now-lastCanvasTap.at<550;
+   if(wasMulti&&samePoint)selectOnly(it.id); // Обычный щелчок после группового выделения выбирает один предмет.
+   lastCanvasTap={id:it.id,at:now};drag=null;clearGuides();persist();renderStage();renderInspector();if(doubleTap)startInlineTextEditor()};
+ area.addEventListener('pointerup',finish);area.addEventListener('pointercancel',finish)
+ }
+ stage.append(area);
+ if(!isViewer&&!preview&&selectedIds.size===1&&selectedIds.has(it.id)&&!(it.kind==='inline'&&inlineSlotSelection?.parentId===it.id))addElementHandles(area,it,w)}
+ const foot=elem('div',isViewer?'viewFooter':'stageFoot'),stat=elem('span',isViewer?'status':'stageMessage');stat.style.display='none';status=stat;foot.append(stat);
+ const verifyAll=()=>{let errors=0;const groups=linkGroups(w,answerItems),insideGroup=new Set();for(const [name,fields] of groups){const gr=checkGroup(w,name,fields);errors+=gr.errors;fields.forEach(f=>{insideGroup.add(f);f.setGroupResult(gr.errors===0)})}
+ for(const control of answerItems){if(insideGroup.has(control))continue;if(!control.verify(true))errors++}showStatus(messageErrors(errors),errors===0);if(errors===0)maybeClose();return errors};
+ const resetAll=()=>{for(const control of answerItems)control.reset();clearStatus()};
+ if(w.check!==false){const b=elem('button','verify','✓ Проверить');b.onclick=verifyAll;foot.append(b)}
+ if(w.reset!==false){const b=elem('button','reset','↺ Заново');b.onclick=resetAll;foot.append(b)}
+ stage.append(foot);
+ if(w.closeShow!==false){const size=clamp(Number(w.closeSize)||50,26,130),btn=elem('button','closeWidget'+(!isViewer&&!preview?' disabledHover':''));btn.type='button';btn.title='Закрыть окно';btn.setAttribute('aria-label','Закрыть окно');btn.style.width=size+'px';btn.style.height=size+'px';btn.style.background=w.closeBg||'#e26865';btn.style.color=w.closeInk||'#fff';btn.style.fontSize=(size*.66)+'px';const image=assetUrl(w.closeImage,w.closeImageUrl);if(image){const img=elem('img');img.src=image;img.alt='Закрыть';btn.append(img)}else btn.textContent='×';const pos=()=>{const pad=14,left=w.closePos==='tl'||w.closePos==='bl'?pad:stageWidth(w)-size-pad,top=w.closePos==='tl'||w.closePos==='tr'?pad:stageHeight(w)-size-pad;return w.closePos==='custom'?[Number(w.closeX)||0,Number(w.closeY)||0]:[left,top]};const [xx,yy]=pos();btn.style.left=clamp(xx,0,stageWidth(w)-size)+'px';btn.style.top=clamp(yy,0,stageHeight(w)-size)+'px';
+ if(isViewer||preview)btn.onclick=closes;else{btn.addEventListener('pointerdown',ev=>{if(ev.button!==0)return;ev.preventDefault();const rect=stage.getBoundingClientRect(),ratio=rect.width/stageWidth(w);const bx=parseInt(btn.style.left)||0,by=parseInt(btn.style.top)||0,sx=ev.clientX,sy=ev.clientY;btn.setPointerCapture(ev.pointerId);const move=e=>{const x=clamp(Math.round(bx+(e.clientX-sx)/ratio),0,stageWidth(w)-size),y=clamp(Math.round(by+(e.clientY-sy)/ratio),0,stageHeight(w)-size);w.closePos='custom';w.closeX=x;w.closeY=y;btn.style.left=x+'px';btn.style.top=y+'px'};const done=()=>{btn.removeEventListener('pointermove',move);btn.removeEventListener('pointerup',done);btn.removeEventListener('pointercancel',done);persist();renderGlobalSettings()};btn.addEventListener('pointermove',move);btn.addEventListener('pointerup',done);btn.addEventListener('pointercancel',done)})}
+ stage.append(btn)}
+ return{verifyAll,resetAll}
+}
+function renderWindows(){const list=$('windowList');list.innerHTML='';state.windows.forEach((w,n)=>{const row=elem('div','winrow'+(w.id===state.active?' active':''));const pick=elem('button','wname',(n+1)+'. '+w.name);pick.title=w.name;pick.onclick=()=>{state.active=w.id;chosen=null;selectedIds.clear();inlineSlotSelection=null;preview=false;$('previewToggle').checked=false;persist();renderAll()};const dup=elem('button','smallAction','⧉');dup.title='Дублировать';dup.onclick=()=>duplicateWindow(w.id);row.append(pick,dup);list.append(row)})}
+function renderStage(){const stage=$('stage');for(const el of Array.from(stage.children))if(!el.classList.contains('liveBackground'))el.remove();stage.style.opacity='1';stage.style.transition='none';const w=getWin();stage.style.width=stageWidth(w)+'px';stage.style.height=stageHeight(w)+'px';applyBg(stage,w);stage.classList.toggle('preview',preview);ensureSelection();previewContext=createExercise(stage,w,false);displaySelection();clearGuides();$('previewAction').textContent=preview?'✎ Вернуться к редактированию':'▶ Проверить как ученик';$('previewAction').classList.toggle('active',preview);resizeStage();if(!preview&&inlineSlotSelection)addInlineSlotHandles();updateQuickTools();if(preview)addResizeHandles()}
+function resizeStage(){const outer=$('stageOuter');if(!outer)return;const w=getWin(),ww=stageWidth(w),hh=stageHeight(w),usable=Math.max(240,outer.clientWidth-36);scale=$('zoomControl')?.value&&$('zoomControl').value!=='fit'?Number($('zoomControl').value):Math.min(1,usable/ww);const holder=$('stageHolder');holder.style.width=(ww*scale)+'px';holder.style.height=(hh*scale)+'px';$('stage').style.transform='scale('+scale+')';$('windowDimensions').textContent=ww+' × '+hh+' px · в предпросмотре тяни зелёные маркеры'}
+function addResizeHandles(){const holder=$('stageHolder'),w=getWin();holder.querySelectorAll('.windowResizeHandle,.windowSizeTag').forEach(el=>el.remove());const tag=elem('div','windowSizeTag',stageWidth(w)+' × '+stageHeight(w));holder.append(tag);const edges={t:[.5,0],r:[1,.5],b:[.5,1],l:[0,.5],tr:[1,0],br:[1,1],bl:[0,1],tl:[0,0]};for(const [edge,ratios] of Object.entries(edges)){const handle=elem('div','windowResizeHandle');handle.dataset.edge=edge;const layout=()=>{const sc=scale;handle.style.left=(stageWidth(w)*sc*ratios[0]-7)+'px';handle.style.top=(stageHeight(w)*sc*ratios[1]-7)+'px'};layout();holder.append(handle);handle.onpointerdown=ev=>{ev.preventDefault();ev.stopPropagation();handle.setPointerCapture(ev.pointerId);const firstW=stageWidth(w),firstH=stageHeight(w),sx=ev.clientX,sy=ev.clientY,old=clone(w.items);let newW=firstW,newH=firstH;
+ const move=e=>{const dx=(e.clientX-sx)/Math.max(.1,scale),dy=(e.clientY-sy)/Math.max(.1,scale);newW=clamp(Math.round(firstW+(edge.includes('r')?dx:edge.includes('l')?-dx:0)),520,1600);newH=clamp(Math.round(firstH+(edge.includes('b')?dy:edge.includes('t')?-dy:0)),300,1000);w.width=newW;w.height=newH;const shiftX=edge.includes('l')?newW-firstW:0,shiftY=edge.includes('t')?newH-firstH:0;old.forEach((it,i)=>{w.items[i].x=clamp(it.x+shiftX,0,newW-it.w);w.items[i].y=clamp(it.y+shiftY,0,newH-it.h)});const stag=$('stage');stag.style.width=newW+'px';stag.style.height=newH+'px';resizeStage();holder.querySelectorAll('.windowResizeHandle').forEach(h=>{const r=edges[h.dataset.edge];h.style.left=(newW*scale*r[0]-7)+'px';h.style.top=(newH*scale*r[1]-7)+'px'});tag.textContent=newW+' × '+newH};
+ const done=()=>{handle.removeEventListener('pointermove',move);handle.removeEventListener('pointerup',done);handle.removeEventListener('pointercancel',done);persist();renderGlobalSettings();renderStage()};handle.addEventListener('pointermove',move);handle.addEventListener('pointerup',done);handle.addEventListener('pointercancel',done)} }}
+function renderGlobalSettings(){const w=getWin();$('winName').value=w.name;$('winFont').innerHTML=fontOptions(w.font||'pt',false);$('winFont').value=w.font||'pt';$('winPhotoOnly').checked=!!w.photoOnly;$('winPhotoOpacity').value=w.bgImageOpacity??100;$('winPhotoOpacityValue').textContent=(w.bgImageOpacity??100)+'%';$('winBg').value=w.bg||'#fff9eb';$('winInk').value=w.ink||'#4c322c';$('winBgUrl').value=w.bgUrl||'';$('winLiveEmbed').value=w.liveBgUrl||'';$('winLiveOnly').checked=!!w.liveBgOnly;$('liveEmbedInfo').textContent=w.liveBgUrl?'✓ Живой фон добавлен: '+w.liveBgUrl:'Живой фон ещё не добавлен.';$('winImageInfo').textContent=w.bgImage?'✓ Загружена картинка с компьютера. Для множества больших фото лучше HTTPS-ссылки.':'Изображение отображается целиком, без обрезки (можно изменить режим).';$('winBgFit').value=w.bgFit||'contain';$('winRadius').value=w.radius??24;$('winGlowOn').checked=!!w.glowOn;$('winGlowColor').value=w.glowColor||'#e9baa5';$('winGlowStrength').value=w.glowStrength??45;$('winGlowBlur').value=w.glowBlur??42;$('winGlowSpread').value=w.glowSpread??8;$('winOpacity').value=w.bgOpacity??100;$('winOpacityValue').textContent=(w.bgOpacity??100)+'%';$('winWidth').value=stageWidth(w);$('winHeight').value=stageHeight(w);$('winBorderShow').checked=!!w.borderShow;$('winBorderColor').value=w.borderColor||'#b9a28b';$('winBorderWidth').value=w.borderWidth??2;$('winCloseShow').checked=w.closeShow!==false;$('winCloseOnSuccess').checked=!!w.closeOnSuccess;$('winClosePos').value=w.closePos||'tr';$('winCloseBg').value=w.closeBg||'#e26865';$('winCloseInk').value=w.closeInk||'#ffffff';$('winCloseSize').value=w.closeSize||50;$('winCloseImageUrl').value=w.closeImageUrl||'';$('winCheck').checked=w.check!==false;$('winReset').checked=w.reset!==false}
+function inputSetting(key,label,kind,val){return `<label class="fieldLabel">${label}</label><input class="editInput" data-prop="${key}" type="${kind}" value="${esc(val??'')}">`}
+function propsFor(it){const dims=[['x','Позиция X'],['y','Позиция Y'],['w','Ширина'],['h','Высота'],['size','Размер шрифта']];const heading=it.kind==='text'?'Текст':it.kind==='inline'?'Задание с окошками в тексте':it.kind==='input'?'Поле ввода':it.kind==='select'?'Выпадающий список':'Перетаскивание слов';let html=`<div class="propertyHead">${heading}</div><p class="propertyDescription">Выбери элемент и перетащи его на полотне. Размеры и оформление каждого поля меняются отдельно.</p><label class="fieldLabel">Шрифт элемента</label><select class="editSelect" data-prop="font">${fontOptions(it.font||'inherit')}</select><p class="help">«Как в настройках окна» — использовать основной шрифт. Изменение сразу видно в предпросмотре.</p>`;
+ if(it.kind==='text'){html+=`<label class="fieldLabel">Содержимое текста</label><textarea class="editArea" rows="5" data-prop="text">${esc(it.text||'')}</textarea><label class="toggle" style="margin:10px 0"><input type="checkbox" data-prop="autoTextHeight" ${it.autoTextHeight!==false?'checked':''}> При изменении текста подгонять только высоту</label><p class="help">Ширина всегда остаётся заданной вручную. После растягивания мышью редактор больше не изменяет размер самостоятельно. Кнопка «Подогнать» действует только по нажатию.</p><label class="fieldLabel">Межстрочный интервал: <strong id="textLineValue">${Math.round(Number(it.lineHeight??1.27)*100)}%</strong></label><input type="range" min="0.8" max="3" step="0.01" class="editInput" style="padding:4px 6px;height:40px" data-prop="lineHeight" value="${Number(it.lineHeight??1.27)}"><p class="help">Меняет расстояние между строками одного текстового блока. 100% — плотные строки, 150–200% — свободнее.</p><label class="fieldLabel">Выравнивание</label><select class="editSelect" data-prop="align"><option value="left" ${it.align!=='center'?'selected':''}>Слева</option><option value="center" ${it.align==='center'?'selected':''}>По центру</option><option value="right" ${it.align==='right'?'selected':''}>Справа</option></select><label class="toggle" style="margin-top:12px"><input type="checkbox" data-prop="bold" ${it.bold?'checked':''}> Жирный текст</label><div class="fieldStyleTitle">Подложка за текстом</div><label class="toggle"><input type="checkbox" data-prop="textBgOn" ${it.textBgOn?'checked':''}> Включить заливку текста</label><div class="twoCols"><div><label class="fieldLabel">Цвет подложки</label><input class="editInput" type="color" data-prop="textBg" value="${esc(it.textBg||'#ffffff')}"></div><div><label class="fieldLabel">Цвет текста</label><input class="editInput" type="color" data-prop="textColor" value="${esc(it.textColor||getWin().ink||'#4c322c')}"></div></div><label class="fieldLabel">Непрозрачность подложки: <span id="textOpacityValue">${Number(it.textOpacity??90)}%</span></label><input type="range" data-prop="textOpacity" min="0" max="100" value="${Number(it.textOpacity??90)}" style="width:100%"><div class="twoCols"><div><label class="fieldLabel">Скругление</label><input type="number" class="editInput" data-prop="textRadius" min="0" max="60" value="${Number(it.textRadius??12)}"></div><div><label class="fieldLabel">Отступ от текста</label><input type="number" class="editInput" data-prop="textPad" min="0" max="30" value="${Number(it.textPad??9)}"></div></div><p class="help">Подложка видна даже при полностью прозрачном большом окне.</p>`}
+ else if(it.kind==='inline'){html+=`<label class="fieldLabel">Текст задания с обозначенными ответами</label><textarea class="editArea" data-prop="markup" rows="9">${esc(it.markup||'')}</textarea><p class="help">Пример: <code>|снег|</code> — ввод; <code>|молоко/малако/малоко|</code> — выпадающий список. Первый вариант правильный. Нажми на отдельное окошко на полотне, чтобы изменить только его размер, или на текст — чтобы выбрать весь блок.</p><label class="toggle"><input type="checkbox" data-prop="autoShortSlots" ${it.autoShortSlots!==false?'checked':''}> Автоматически делать маленькие окошки для 1–3 букв</label><label class="fieldLabel">Межстрочный интервал</label><input type="number" class="editInput" data-prop="lineHeight" min="0.8" max="3" step="0.05" value="${Number(it.lineHeight??1.38)}"><div class="twoCols"><div><label class="fieldLabel">Ширина поля ввода</label><input type="number" min="26" max="700" data-prop="slotWidth" class="editInput" value="${Number(it.slotWidth??185)}"></div><div><label class="fieldLabel">Ширина выпадающего списка</label><input type="number" min="26" max="700" data-prop="slotSelectWidth" class="editInput" value="${Number(it.slotSelectWidth??245)}"></div><div><label class="fieldLabel">Высота полей</label><input type="number" min="24" max="160" data-prop="slotHeight" class="editInput" value="${Number(it.slotHeight??58)}"></div></div><div class="fieldStyleTitle">Оформление окошек в тексте</div><label class="fieldLabel">Рамка</label><select class="editSelect" data-prop="fieldBorderStyle"><option value="dashed" ${it.fieldBorderStyle==='dashed'?'selected':''}>Пунктирная</option><option value="solid" ${it.fieldBorderStyle==='solid'?'selected':''}>Сплошная</option><option value="dotted" ${it.fieldBorderStyle==='dotted'?'selected':''}>Точечная</option><option value="none" ${it.fieldBorderStyle==='none'?'selected':''}>Без рамки</option></select><div class="twoCols"><div><label class="fieldLabel">Заливка</label><input type="color" class="editInput" data-prop="fieldBg" value="${esc(it.fieldBg||'#ffffff')}"></div><div><label class="fieldLabel">Цвет обводки</label><input type="color" class="editInput" data-prop="fieldBorder" value="${esc(it.fieldBorder||'#998c88')}"></div><div><label class="fieldLabel">Цвет ответа</label><input type="color" class="editInput" data-prop="fieldInk" value="${esc(it.fieldInk||'#47342f')}"></div><div><label class="fieldLabel">Скругление</label><input type="number" class="editInput" data-prop="fieldRadius" min="0" max="60" value="${Number(it.fieldRadius??18)}"></div></div>`}
+ else if(it.kind==='sequence'){html+=`<label class="fieldLabel">Слова в ПРАВИЛЬНОМ порядке (каждое с новой строки)</label><textarea class="editArea" rows="7" data-prop="words">${esc(it.words||'')}</textarea><p class="help">При запуске слова перемешиваются. Ученик перетаскивает карточки или меняет две карточки местами нажатием.</p><div class="fieldStyleTitle">Цвет плашек слов (без пунктира)</div><div class="twoCols"><div><label class="fieldLabel">Цвет плашки</label><input type="color" data-prop="fieldBg" class="editInput" value="${esc(it.fieldBg||'#ffffff')}"></div><div><label class="fieldLabel">Цвет слова</label><input type="color" data-prop="fieldInk" class="editInput" value="${esc(it.fieldInk||'#47342f')}"></div></div><label class="fieldLabel">Прозрачность плашек: <span id="miniOpacityValue">${Number(it.fieldOpacity??100)}%</span></label><input type="range" min="0" max="100" data-prop="fieldOpacity" value="${Number(it.fieldOpacity??100)}" style="width:100%"><label class="fieldLabel">Скругление плашек</label><input type="number" min="0" max="60" class="editInput" data-prop="fieldRadius" value="${Number(it.fieldRadius??18)}"><p class="help">Плашки будут цельными, без пунктирной рамки; цвет меняется прямо здесь.</p>`}
+ else{html+=inputSetting('answer','Правильный ответ (через | — допустимые варианты)','text',it.answer||'');html+=`<p class="help">Можно писать целые предложения с пробелами. Enter — проверка.</p>`;html+=inputSetting('placeholder','Текст-подсказка внутри поля','text',it.placeholder||'');if(it.kind==='select')html+=`<label class="fieldLabel">Варианты списка — каждый с новой строки</label><textarea class="editArea" rows="5" data-prop="options">${esc(it.options||'')}</textarea>`;
+ if(it.kind==='input')html+=`<label class="toggle" style="margin-top:12px"><input type="checkbox" data-prop="multiline" ${it.multiline?'checked':''}> Многострочный ответ (Shift+Enter — перенос)</label>`;
+ const groups=Object.keys(getWin().groups||{});html+=`<label class="fieldLabel">Связь с группой (ответы в любом порядке)</label><select class="editSelect" data-prop="groupId"><option value="">Без группы, проверять отдельно</option>${groups.map(g=>`<option value="${esc(g)}" ${it.groupId===g?'selected':''}>${esc(g)}</option>`).join('')}</select><p class="help">Чтобы сделать несколько взаимозаменяемых окошек, привяжи их к одной группе. Группу удобно создать кнопкой «＋ Связанная группа».</p>`;
+ if(it.groupId&&getWin().groups?.[it.groupId])html+=`<label class="fieldLabel">Ответы группы «${esc(it.groupId)}» (каждый с новой строки)</label><textarea class="editArea" rows="6" data-group-answers="${esc(it.groupId)}">${esc(getWin().groups[it.groupId].answers||'')}</textarea><p class="help">Ответов в списке должно быть столько же, сколько полей в группе. Повторение одинаковых слов учитывается.</p>`
+ html+=`<div class="fieldStyleTitle">Оформление мини-окошка</div><label class="fieldLabel">Тип обводки поля</label><select class="editSelect" data-prop="fieldBorderStyle"><option value="dashed" ${(!it.fieldBorderStyle||it.fieldBorderStyle==='dashed')?'selected':''}>Пунктирная</option><option value="solid" ${it.fieldBorderStyle==='solid'?'selected':''}>Сплошная</option><option value="dotted" ${it.fieldBorderStyle==='dotted'?'selected':''}>Точечная</option><option value="none" ${it.fieldBorderStyle==='none'?'selected':''}>Без рамки</option></select><div class="twoCols"><div><label class="fieldLabel">Заливка поля</label><input type="color" data-prop="fieldBg" class="editInput" value="${esc(it.fieldBg||'#ffffff')}"></div><div><label class="fieldLabel">Цвет рамки</label><input type="color" data-prop="fieldBorder" class="editInput" value="${esc(it.fieldBorder||'#a6a6a6')}"></div></div><div class="twoCols"><div><label class="fieldLabel">Цвет ответа</label><input type="color" data-prop="fieldInk" class="editInput" value="${esc(it.fieldInk||'#47342f')}"></div><div><label class="fieldLabel">Скругление</label><input type="number" data-prop="fieldRadius" min="0" max="60" class="editInput" value="${Number(it.fieldRadius??18)}"></div></div><label class="fieldLabel">Прозрачность поля: <span id="miniOpacityValue">${Number(it.fieldOpacity??100)}%</span></label><input type="range" min="0" max="100" data-prop="fieldOpacity" value="${Number(it.fieldOpacity??100)}" style="width:100%"><div class="fieldStyleTitle">Картинка за мини-окошком</div><label class="fieldLabel">HTTPS-ссылка на картинку</label><input type="text" class="editInput" data-prop="fieldImageUrl" value="${esc(it.fieldImageUrl||'')}" placeholder="https://.../ukrashenie.png"><div class="uploadRow"><button type="button" data-field-upload>📁 Загрузить картинку</button><button type="button" data-field-image-clear>Убрать картинку</button></div><p class="help">Картинка находится позади поля, не обрезается и помещается целиком (contain). Можно сделать её больше поля.</p><div class="twoCols"><div><label class="fieldLabel">Ширина картинки, %</label><input class="editInput" type="number" min="60" max="300" data-prop="imageScaleX" value="${Number(it.imageScaleX??160)}"></div><div><label class="fieldLabel">Высота картинки, %</label><input class="editInput" type="number" min="60" max="300" data-prop="imageScaleY" value="${Number(it.imageScaleY??155)}"></div><div><label class="fieldLabel">Сместить X, px</label><input class="editInput" type="number" min="-300" max="300" data-prop="imageOffsetX" value="${Number(it.imageOffsetX??0)}"></div><div><label class="fieldLabel">Сместить Y, px</label><input class="editInput" type="number" min="-300" max="300" data-prop="imageOffsetY" value="${Number(it.imageOffsetY??0)}"></div></div>`}
+ html+='<div class="twoCols">';for(const [key,label] of dims)html+=`<div><label class="fieldLabel">${label}</label><input class="editInput" type="number" id="prop_${key}" data-prop="${key}" value="${Number(it[key]||0)}"></div>`;return html+'</div>'}
+function renderInspector(){const it=getItem(),panel=$('inspectorContent');if(selectedInlineSlot()){panel.innerHTML=inlineSlotInspector();connectSlotInspector();return}if(currentSelection().length>1&&!preview){panel.innerHTML=selectionInspector();return}if(!it){panel.innerHTML='<div class="infoBox">Выбери текст или поле ответа прямо на полотне — появятся маркеры изменения размера, быстрые настройки и свойства.</div>';return}panel.innerHTML=propsFor(it);
+ panel.querySelectorAll('[data-prop]').forEach(el=>{const k=el.dataset.prop;const handler=()=>{if(['x','y','w','h','size','fieldOpacity','fieldRadius','textOpacity','textRadius','textPad','lineHeight','slotWidth','slotSelectWidth','slotHeight','imageScaleX','imageScaleY','imageOffsetX','imageOffsetY'].includes(k)){let n=Number(el.value)||0;if(k==='w'){n=clamp(n,40,stageWidth(getWin())-it.x);it.autoTextWidth=false;}if(k==='h')n=clamp(n,25,stageHeight(getWin()));if(k==='size')n=clamp(n,9,180);if(k==='fieldOpacity'||k==='textOpacity')n=clamp(n,0,100);if(k==='fieldRadius'||k==='textRadius')n=clamp(n,0,60);if(k==='textPad')n=clamp(n,0,30);if(k==='lineHeight')n=clamp(n,.8,3);if(k==='slotWidth'||k==='slotSelectWidth')n=clamp(n,26,700);if(k==='slotHeight')n=clamp(n,24,160);if(k==='imageScaleX'||k==='imageScaleY')n=clamp(n,60,300);if(k==='imageOffsetX'||k==='imageOffsetY')n=clamp(n,-300,300);if(k==='x')n=clamp(n,0,stageWidth(getWin())-it.w);if(k==='y')n=clamp(n,0,stageHeight(getWin())-it.h);it[k]=n}else if(['bold','multiline','textBgOn','autoTextWidth','autoTextHeight','autoShortSlots'].includes(k))it[k]=el.checked;else {it[k]=el.value;if(k==='fieldImageUrl'&&el.value.trim())it.fieldImage=''}if(k==='fieldOpacity')$('miniOpacityValue').textContent=it[k]+'%';if(k==='textOpacity')$('textOpacityValue').textContent=it[k]+'%';if(k==='lineHeight'){const output=$('textLineValue');if(output)output.textContent=Math.round(it[k]*100)+'%';if(it.kind==='text'&&it.autoTextHeight!==false)growTextToFit(it,getWin())}if(it.kind==='text'&&k==='text'&&it.autoTextHeight!==false)growTextToFit(it,getWin());if(it.kind==='inline'&&k==='markup')fitInlineHeight(it,getWin());persist();renderStage();if(k==='groupId')renderInspector()};el.addEventListener((el.type==='checkbox'||el.tagName==='SELECT')?'change':'input',handler)});
+ panel.querySelectorAll('[data-group-answers]').forEach(el=>el.addEventListener('input',()=>{const groupName=el.dataset.groupAnswers;getWin().groups[groupName].answers=el.value;persist()}));
+ panel.querySelector('[data-field-upload]')?.addEventListener('click',()=>{const input=document.createElement('input');input.type='file';input.accept='image/*';input.onchange=async()=>{try{const file=input.files?.[0];if(!file)return;it.fieldImage=await readPicture(file,1200,720);it.fieldImageUrl='';persist();renderInspector();renderStage()}catch(e){alert(e.message)}};input.click()});panel.querySelector('[data-field-image-clear]')?.addEventListener('click',()=>{it.fieldImage='';it.fieldImageUrl='';persist();renderInspector();renderStage()})}
+function renderAll(){renderWindows();renderGlobalSettings();renderStage();renderInspector()}
+function addInlineFromText(){const markup=$('autoTaskText').value;const parts=parseInlineParts(markup);const count=parts.filter(p=>p.type!=='text').length;if(!count){$('autoTaskFeedback').textContent='Не нашла окошек. Укажи ответы в |вертикальных чертах|.';return}
+ const w=$('autoTaskNewWindow').checked?makeWindow('Задание из текста'):getWin();if($('autoTaskNewWindow').checked){state.windows.push(w);state.active=w.id;}const it=newInlineTask(markup,65,110,Math.min(870,stageWidth(w)-90),300,31);w.items.push(it);fitInlineHeight(it,w,{shrink:true});chosen=it.id;selectedIds=new Set([it.id]);preview=false;$('previewToggle').checked=false;$('autoTaskModal').classList.remove('show');persist();renderAll()}
+function addWindow(){const w=makeWindow('Окно '+(state.windows.length+1));w.items=[newText('Напиши текст задания',80,64,840,90,38,true,'center'),newInput(255,215,490,76)];state.windows.push(w);state.active=w.id;chosen=null;selectedIds.clear();inlineSlotSelection=null;preview=false;$('previewToggle').checked=false;persist();renderAll()}
+function duplicateWindow(id){const original=state.windows.find(w=>w.id===id);if(!original)return;const w=clone(original);w.id=uid();w.name+=' (копия)';w.items.forEach(it=>it.id=uid());state.windows.push(w);state.active=w.id;chosen=null;selectedIds.clear();inlineSlotSelection=null;preview=false;$('previewToggle').checked=false;persist();renderAll()}
+function deleteWindow(){if(state.windows.length===1){alert('В проекте должно остаться хотя бы одно окно.');return}if(!confirm('Удалить текущее окно?'))return;state.windows=state.windows.filter(w=>w.id!==state.active);state.active=state.windows[0].id;chosen=null;selectedIds.clear();persist();renderAll()}
+function addPiece(kind){const w=getWin();let item;if(kind==='text')item=newText('Новый текст задания',160,128,670,85,31);if(kind==='input')item=newInput(220,198);if(kind==='select')item=newSelect(220,198);if(kind==='sequence')item=newSequence(110,209);w.items.push(item);chosen=item.id;selectedIds=new Set([item.id]);preview=false;$('previewToggle').checked=false;persist();renderStage();renderInspector()}
+function addGroup(){const w=getWin();let num=1;while(w.groups['Группа '+num])num++;const groupId='Группа '+num;w.groups[groupId]={answers:'лесной\nлесник\nлесочек\nлесок'};
+ const baseY=Math.max(90,Math.min(207,160));const settings=[{x:70,y:baseY},{x:530,y:baseY},{x:70,y:baseY+96},{x:530,y:baseY+96}];for(let i=0;i<4;i++){const input=newInput(settings[i].x,settings[i].y,400,68,'','Слово '+(i+1),groupId);w.items.push(input);if(i===0){chosen=input.id;selectedIds=new Set([input.id])}}preview=false;$('previewToggle').checked=false;persist();renderStage();renderInspector()}
+function removePiece(){ensureSelection();if(!selectedIds.size)return;getWin().items=getWin().items.filter(it=>!selectedIds.has(it.id));selectedIds.clear();chosen=null;persist();renderStage();renderInspector()}
+function duplicatePiece(){const items=currentSelection();if(!items.length)return;const clones=items.map(it=>{const cp=clone(it);cp.id=uid();cp.x=clamp(cp.x+25,0,stageWidth(getWin())-cp.w);cp.y=clamp(cp.y+25,0,stageHeight(getWin())-cp.h);return cp});getWin().items.push(...clones);selectedIds=new Set(clones.map(it=>it.id));chosen=clones[0].id;persist();renderStage();renderInspector()}
+function download(filename,contents,mime){const blob=new Blob([contents],{type:mime}),url=URL.createObjectURL(blob),link=document.createElement('a');link.href=url;link.download=filename;document.body.append(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),2000)}
+function cleanName(s){return str(s).replace(/[^\w\u0400-\u04ff-]+/g,'_').slice(0,45)||'okno'}
+function automaticHost(){try{const u=new URL(location.href);if(u.protocol!=='https:'||!u.host||u.username||u.password)return '';u.hash='';u.search='';return u.href}catch(e){return ''}}
+function exportHost(){const override=$('hostUrl').value.trim();if(override){try{const u=new URL(override);if(u.protocol!=='https:'||u.username||u.password)return '';u.hash='';return u.href}catch(e){return ''}}return automaticHost()}
+function getIframe(){const host=exportHost();if(!host)return null;const src=host+'#view='+base64Url(JSON.stringify(getWin()));return `<iframe src="${esc(src)}" width="${stageWidth(getWin())}" height="${stageHeight(getWin())}" style="border:0;display:block;max-width:100%;width:100%;aspect-ratio:${stageWidth(getWin())} / ${stageHeight(getWin())};background:transparent;" loading="lazy" title="${esc(getWin().name)}"></iframe>`}
+function updateEmbed(){state.host=$('hostUrl').value.trim();persist();const auto=automaticHost();const host=exportHost();const notice=$('autoHostNotice');notice.classList.toggle('not-hosted',!host);notice.textContent=host?(state.host?'✓ Используется адрес, заданный вручную: ':'✓ Адрес определён автоматически: ')+host:'На компьютере (file://) публичный адрес определить нельзя. Опубликуй редактор на GitHub Pages или укажи ссылку вручную.';const code=getIframe();$('embedCode').value=code||'';$('copyEmbed').disabled=!code;$('exportFeedback').textContent=code?(code.length>130000?'⚠️ Код большой из-за изображений. Для вставки в Genially лучше использовать HTTPS-ссылки на картинки.':'✓ iframe готов для этого окна. Учителям не нужно вводить ссылку.'):'Публичной HTTPS-ссылки пока нет.'}
+function showModal(){$('hostUrl').value='';$('hostOverride').open=false;updateEmbed();$('exportModal').classList.add('show')}
+function downloadSingle(){const packed=base64Url(JSON.stringify(getWin()));const doc=document.documentElement.cloneNode(true);const meta=doc.querySelector('meta[name="pro-widget"]');meta.setAttribute('content',packed);doc.querySelector('#exportModal')?.classList.remove('show');for(const selector of ['#stage','#inspectorContent','#windowList','#viewerApp']){const node=doc.querySelector(selector);if(node){node.innerHTML='';node.removeAttribute('style')}}doc.querySelector('#stageHolder')?.removeAttribute('style');const text=doc.querySelector('#embedCode');if(text)text.textContent='';download('PRO_Okno_'+cleanName(getWin().name)+'.html','<!DOCTYPE html>\n'+doc.outerHTML,'text/html;charset=utf-8')}
+async function copyCode(){const code=getIframe();if(!code)return;try{await navigator.clipboard.writeText(code);$('exportFeedback').textContent='✓ iframe скопирован! Вставь его во всплывающее окно Genially.'}catch(e){$('embedCode').focus();$('embedCode').select();$('exportFeedback').textContent='Выдели готовый код в поле и нажми Ctrl+C.'}}
+function bindings(){
+ const quickChange=(k,value)=>{const it=getItem();if(!it||preview)return;let n=Number(value);if(!Number.isFinite(n))return;
+  const slot=selectedInlineSlot();if(slot&&(k==='w'||k==='h')){saveInlineSlotDimension(it,slot.index,k,n);fitInlineHeight(it,getWin());persist();renderStage();renderInspector();return}
+  if(k==='size'){it.size=clamp(Math.round(n),9,180);if(it.kind==='text'&&it.autoTextHeight!==false)growTextToFit(it,getWin());}
+  else if(k==='w'){it.w=clamp(Math.round(n),it.kind==='text'?35:75,stageWidth(getWin())-it.x);if(it.kind==='text'){it.autoTextWidth=false;it.autoTextHeight=false}}
+  else if(k==='h'){it.h=clamp(Math.round(n),25,stageHeight(getWin())-it.y)}
+  persist();renderStage();renderInspector();};
+ $('quickLess').onclick=()=>quickChange('size',(getItem()?.size||28)-2);
+ $('quickMore').onclick=()=>quickChange('size',(getItem()?.size||28)+2);
+ for(const [id,k] of [['quickFontSize','size'],['quickWidth','w'],['quickHeight','h']])$(id).addEventListener('change',e=>quickChange(k,e.target.value));
+ $('quickLineHeight').onchange=e=>{const it=getItem();if(!it||!['text','inline'].includes(it.kind)||currentSelection().length!==1)return;it.lineHeight=clamp(Number(e.target.value)||1.27,.8,3);if(it.kind==='text'&&it.autoTextHeight!==false)growTextToFit(it,getWin());persist();renderStage();renderInspector()};$('quickEditText').onclick=startInlineTextEditor;
+ $('quickFit').onclick=()=>{const it=getItem();if(!it||it.kind!=='text')return;it.autoTextWidth=false;it.autoTextHeight=true;growTextToFit(it,getWin(),{fitWidth:true,shrink:true});persist();renderStage();renderInspector()};
+ $('zoomControl').addEventListener('change',()=>{resizeStage();if(preview)addResizeHandles();else renderStage()});
+ ['newWinTop','newWin'].forEach(id=>$(id).onclick=addWindow);$('duplicateWin').onclick=()=>duplicateWindow(state.active);$('deleteWin').onclick=deleteWindow;$('addText').onclick=()=>addPiece('text');$('addInput').onclick=()=>addPiece('input');$('addSelect').onclick=()=>addPiece('select');$('addSequence').onclick=()=>addPiece('sequence');$('addGroup').onclick=addGroup;$('addInlineTask').onclick=()=>{$('autoTaskFeedback').textContent='';$('autoTaskNewWindow').checked=false;$('autoTaskModal').classList.add('show');$('autoTaskText').focus()};$('autoTaskCancel').onclick=()=>$('autoTaskModal').classList.remove('show');$('autoTaskCreate').onclick=addInlineFromText;$('autoTaskModal').onclick=ev=>{if(ev.target===$('autoTaskModal'))$('autoTaskModal').classList.remove('show')};$('clonePiece').onclick=duplicatePiece;$('deletePiece').onclick=removePiece;
+ const setPreview=next=>{preview=!!next;chosen=null;inlineSlotSelection=null;selectedIds.clear();$('previewToggle').checked=preview;renderStage();renderInspector()};
+ $('previewToggle').onchange=ev=>setPreview(ev.target.checked);
+ $('previewAction').onclick=()=>setPreview(!preview);
+ const generic=[['winName','name','text'],['winBg','bg','text'],['winInk','ink','text'],['winBgUrl','bgUrl','text'],['winBgFit','bgFit','text'],['winFont','font','text'],['winGlowOn','glowOn','check'],['winGlowColor','glowColor','text'],['winGlowStrength','glowStrength','number'],['winGlowBlur','glowBlur','number'],['winGlowSpread','glowSpread','number'],['winLiveOnly','liveBgOnly','check'],['winPhotoOnly','photoOnly','check'],['winPhotoOpacity','bgImageOpacity','number'],['winRadius','radius','number'],['winOpacity','bgOpacity','number'],['winCheck','check','check'],['winReset','reset','check'],['winBorderShow','borderShow','check'],['winBorderColor','borderColor','text'],['winBorderWidth','borderWidth','number'],['winCloseShow','closeShow','check'],['winCloseOnSuccess','closeOnSuccess','check'],['winClosePos','closePos','text'],['winCloseBg','closeBg','text'],['winCloseInk','closeInk','text'],['winCloseSize','closeSize','number'],['winCloseImageUrl','closeImageUrl','text']];
+ for(const [id,key,type] of generic)$(id).addEventListener(type==='check'?'change':'input',ev=>{const w=getWin();w[key]=type==='check'?ev.target.checked:type==='number'?Number(ev.target.value):ev.target.value;if(key==='bgUrl'&&ev.target.value.trim()){w.bgImage='';$('winImageInfo').textContent='Выбран фон по HTTPS-ссылке.'}if(key==='closeImageUrl'&&ev.target.value.trim())w.closeImage='';if(key==='bgOpacity')$('winOpacityValue').textContent=w.bgOpacity+'%';if(key==='bgImageOpacity')$('winPhotoOpacityValue').textContent=w.bgImageOpacity+'%';persist();if(key==='name')renderWindows();renderStage()});
+ for(const [id,key,min,max] of [['winWidth','width',520,1600],['winHeight','height',300,1000]])$(id).addEventListener('change',ev=>{const w=getWin();w[key]=clamp(Number(ev.target.value)||w[key],min,max);w.items.forEach(it=>{it.x=clamp(it.x,0,stageWidth(w)-it.w);it.y=clamp(it.y,0,stageHeight(w)-it.h)});persist();renderGlobalSettings();renderStage()});
+ $('winBgUpload').onclick=()=>$('bgImageFile').click();$('bgImageFile').onchange=async ev=>{try{const f=ev.target.files?.[0];if(!f)return;getWin().bgImage=await readPicture(f,1300,850);getWin().bgUrl='';persist();renderGlobalSettings();renderStage()}catch(e){alert(e.message)}ev.target.value=''};
+ $('winBgClear').onclick=()=>{getWin().bgImage='';getWin().bgUrl='';persist();renderGlobalSettings();renderStage()};
+  $('winLiveApply').onclick=()=>{const raw=$('winLiveEmbed').value.trim();const url=iframeSource(raw);
+    if(raw&&!url){$('liveEmbedInfo').textContent='Не удалось найти HTTPS-ссылку. Вставь iframe с атрибутом src или HTTPS-адрес.';return}
+    getWin().liveBgUrl=url;if(url)getWin().liveBgOnly=true;
+    persist();renderGlobalSettings();renderStage()};
+  $('winLiveClear').onclick=()=>{getWin().liveBgUrl='';getWin().liveBgOnly=false;persist();renderGlobalSettings();renderStage()};
+ $('winCloseUpload').onclick=()=>$('closeImageFile').click();$('closeImageFile').onchange=async ev=>{try{const f=ev.target.files?.[0];if(!f)return;getWin().closeImage=await readPicture(f,500,500);getWin().closeImageUrl='';persist();renderGlobalSettings();renderStage()}catch(e){alert(e.message)}ev.target.value=''};
+ $('winCloseClear').onclick=()=>{getWin().closeImage='';getWin().closeImageUrl='';persist();renderGlobalSettings();renderStage()};
+ $('saveProject').onclick=()=>download('PRO_Nachalka_Moi_Okna_v11.json',JSON.stringify(state,null,2),'application/json;charset=utf-8');$('loadProject').onclick=()=>$('projectFile').click();$('projectFile').onchange=async ev=>{const f=ev.target.files[0];if(!f)return;try{const data=JSON.parse(await f.text());state=normalizeProject(data);state.guides=true;state.snap=true;chosen=null;selectedIds.clear();inlineSlotSelection=null;preview=false;$('previewToggle').checked=false;persist();renderAll()}catch(e){alert('Не удалось открыть проект: '+e.message)}ev.target.value=''};
+ $('exportTop').onclick=showModal;$('closeModal').onclick=()=>$('exportModal').classList.remove('show');$('exportModal').onclick=ev=>{if(ev.target===$('exportModal'))$('exportModal').classList.remove('show')};$('hostUrl').addEventListener('input',updateEmbed);$('copyEmbed').onclick=copyCode;$('downloadWidget').onclick=downloadSingle;
+ $('stage').addEventListener('pointerdown',ev=>{if(ev.target!==$('stage')||preview||ev.button!==0)return;
+   ev.preventDefault();const stage=$('stage'),ratio=stage.getBoundingClientRect().width/stageWidth(getWin());
+   const rect=stage.getBoundingClientRect(),sx=clamp((ev.clientX-rect.left)/ratio,0,stageWidth(getWin())),sy=clamp((ev.clientY-rect.top)/ratio,0,stageHeight(getWin()));
+   const previous=(ev.shiftKey||ev.ctrlKey||ev.metaKey)?new Set(selectedIds):new Set();let moved=false;
+   const marquee=elem('div','marqueeBox');stage.append(marquee);stage.setPointerCapture(ev.pointerId);
+   const move=e=>{if(e.pointerId!==ev.pointerId)return;const x=clamp((e.clientX-rect.left)/ratio,0,stageWidth(getWin())),y=clamp((e.clientY-rect.top)/ratio,0,stageHeight(getWin()));if(Math.hypot(x-sx,y-sy)>4)moved=true;
+    const box={x:Math.min(sx,x),y:Math.min(sy,y),w:Math.abs(x-sx),h:Math.abs(y-sy)};
+    Object.assign(marquee.style,{left:box.x+'px',top:box.y+'px',width:box.w+'px',height:box.h+'px'});
+    if(!moved)return;selectedIds=new Set(previous);
+    for(const it of getWin().items)if(it.x<box.x+box.w&&it.x+it.w>box.x&&it.y<box.y+box.h&&it.y+it.h>box.y)selectedIds.add(it.id);
+    chosen=selectedIds.values().next().value||null;displaySelection();updateQuickTools();
+   };
+   const end=e=>{if(e.pointerId!==ev.pointerId)return;stage.removeEventListener('pointermove',move);stage.removeEventListener('pointerup',end);stage.removeEventListener('pointercancel',end);marquee.remove();if(!moved){selectedIds=new Set(previous);chosen=selectedIds.values().next().value||null}renderStage();renderInspector()};
+   stage.addEventListener('pointermove',move);stage.addEventListener('pointerup',end);stage.addEventListener('pointercancel',end)
+ });
+ window.addEventListener('resize',resizeStage);
+ window.addEventListener('keydown',ev=>{if(preview||$('exportModal').classList.contains('show'))return;
+  const target=document.activeElement;if(target?.isContentEditable||['INPUT','TEXTAREA','SELECT'].includes(target?.tagName))return;
+  if((ev.ctrlKey||ev.metaKey)&&ev.key.toLowerCase()==='a'){ev.preventDefault();selectedIds=new Set(getWin().items.map(it=>it.id));chosen=getWin().items[0]?.id||null;renderStage();renderInspector();return}
+  if(ev.key==='Escape'){selectedIds.clear();chosen=null;renderStage();renderInspector();return}
+  if(ev.key==='Delete'||ev.key==='Backspace'){ev.preventDefault();removePiece();return}
+  const diff={ArrowLeft:[-1,0],ArrowRight:[1,0],ArrowUp:[0,-1],ArrowDown:[0,1]}[ev.key];if(diff&&selectedIds.size){ev.preventDefault();const mult=ev.shiftKey?10:1,b=selectedBounds(currentSelection()),dx=clamp(diff[0]*mult,-b.x,stageWidth(getWin())-b.x-b.w),dy=clamp(diff[1]*mult,-b.y,stageHeight(getWin())-b.y-b.h);for(const it of currentSelection()){it.x+=dx;it.y+=dy}persist();renderStage();renderInspector()}
+ })}
+function renderViewer(config){const app=$('viewerApp');app.innerHTML='';const canvas=elem('div','viewerCanvas');canvas.style.width=stageWidth(config)+'px';canvas.style.height=stageHeight(config)+'px';applyBg(canvas,config);app.append(canvas);createExercise(canvas,config,true);const resize=()=>{const ww=stageWidth(config),hh=stageHeight(config),sc=Math.min(window.innerWidth/ww,window.innerHeight/hh);canvas.style.transform='scale('+sc+')';canvas.style.left=((window.innerWidth-ww*sc)/2)+'px';canvas.style.top=((window.innerHeight-hh*sc)/2)+'px'};window.addEventListener('resize',resize);resize()}
+const meta=document.querySelector('meta[name="pro-widget"]');let packed=meta?.getAttribute('content')||'';if(!packed&&location.hash.startsWith('#view='))packed=location.hash.slice(6);
+if(packed){try{const config=JSON.parse(decode64(packed));if(!config.items)throw Error('Нет элементов');normalizeProject({windows:[config],active:config.id});document.body.classList.add('viewMode');document.title='PRO Началка | '+str(config.name);renderViewer(config)}catch(e){document.body.classList.add('viewMode');$('viewerApp').textContent='Не удалось открыть задание: повреждены данные окна.';console.error(e)}}
+else{
+ // One-time legacy repair: old versions enlarged headings even on simple re-render.
+ for(const win of state.windows){if(win.layoutVersion>=10)continue;for(const item of win.items){if(item.kind!=='text')continue;item.autoTextWidth=false;if(item.autoTextHeight===undefined)item.autoTextHeight=true;const lines=(item.text||'').split('\n');if(lines.length===1&&!item.textBgOn&&item.h>(item.size||28)*2.7){growTextToFit(item,win,{shrink:true})}}win.layoutVersion=10}
+ bindings();renderAll();persist()
+}
+})();
+</script>
+</body></html>
